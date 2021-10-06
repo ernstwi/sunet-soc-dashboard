@@ -1,0 +1,133 @@
+body {
+    background: #fff;
+    font-size: 14px;
+    color: #003049;
+    line-height: 1.2;
+}
+
+#root {
+    display: flex;
+}
+
+#list-container,
+#object-view {
+    width: 100%;
+}
+
+/* Header */
+
+#header {
+    margin: 0;
+    border-right: 1px solid black;
+    width: 10em;
+}
+
+#header li {
+    list-style-type: none;
+}
+
+#header ul {
+    padding-left: 2em;
+}
+
+#header hr {
+    width: 70%;
+}
+
+/* Object */
+.object {
+    border: 1px solid black;
+    border-radius: 25px;
+    padding: 2em;
+    margin: 1em;
+    width: 40em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.object.good {
+    background-color: green;
+}
+
+.object.bad {
+    background-color: red;
+}
+
+.object td {
+    padding-right: 2em;
+}
+
+.object .user-presentation {
+    margin-top: 2em;
+}
+
+.object .user-presentation .header {
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+.object .user-presentation .description {
+    font-style: italic;
+    margin-bottom: 1em;
+}
+
+/* List */
+
+#list-container > #controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+}
+
+#list-container > #pagination {
+    display: flex;
+    justify-content: center;
+}
+
+/* Login */
+
+#login-container {
+    display: flex;
+    justify-content: center;
+}
+
+#login {
+    margin-top: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+#login > h1 {
+    font-size: 20px;
+    margin-bottom: 32px;
+}
+
+#login > .ui.input {
+    display: block;
+    margin-bottom: 1em;
+}
+
+#login > .ui.button {
+    margin-bottom: 1em;
+}
+
+.error {
+    color: red;
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+/* Error */
+
+#error-container {
+    display: flex;
+    justify-content: center;
+}
+
+#error-container > .ui.message {
+    margin-top: 20vh;
+}
