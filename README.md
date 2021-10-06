@@ -2,7 +2,7 @@
 
 ## Development setup
 
-Run `soc_collector` checked out to tag `dashboard` on port 8001.
+Run `soc_collector` checked out to tag `dashboard` on port 8000.
 
 Populate `soc_collector` with data from `example_data.json`:
 
