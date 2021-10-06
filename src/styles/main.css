@@ -67,9 +67,17 @@ body {
     margin-bottom: 0.5em;
 }
 
-.object .user-presentation .description {
+.object > .user-presentation > .description {
     font-style: italic;
     margin-bottom: 1em;
+}
+
+.object > .user-presentation > table .description {
+    font-style: italic;
+}
+
+.object > .user-presentation > table .spacer {
+    height: 1em;
 }
 
 /* List */

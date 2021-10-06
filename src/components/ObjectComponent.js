@@ -48,15 +48,21 @@ function UserPresentation(props) {
                     {Object.entries(props.data).map(
                         ([key, { data, display_name, description }]) => {
                             return (
-                                <tr key={key}>
-                                    <td>{display_name}</td>
+                                <>
+                                    <tr key={key}>
+                                        <td>{display_name}</td>
+                                        <td>{data.toString()}</td>
+                                    </tr>
                                     {description && (
-                                        <td className="description">
-                                            {description}
-                                        </td>
+                                        <tr
+                                            className="description"
+                                            key={key + "-description"}
+                                        >
+                                            <td colspan="2">{description}</td>
+                                        </tr>
                                     )}
-                                    <td>{data.toString()}</td>
-                                </tr>
+                                    <tr className="spacer"></tr>
+                                </>
                             );
                         }
                     )}
