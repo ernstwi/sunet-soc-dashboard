@@ -30,7 +30,14 @@ class List extends React.Component {
             }
         })
             .then(resp => resp.json())
-            .then(data => this.setState({ objects: data }));
+            .then(resp => {
+                // TODO: Look at `status` or return code or both?
+                if (resp.status != "success")
+                    throw `soc_collector responded: ${resp.status}`;
+                return resp;
+            })
+            .then(resp => this.setState({ objects: resp.data }))
+            .catch(e => this.props.setError(e));
     }
 
     filter(field, value) {
