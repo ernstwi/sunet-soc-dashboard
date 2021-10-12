@@ -48,21 +48,18 @@ function UserPresentation(props) {
                     {Object.entries(props.data).map(
                         ([key, { data, display_name, description }]) => {
                             return (
-                                <>
-                                    <tr key={key}>
+                                <React.Fragment key={key}>
+                                    <tr>
                                         <td>{display_name}</td>
                                         <td>{data.toString()}</td>
                                     </tr>
                                     {description && (
-                                        <tr
-                                            className="description"
-                                            key={key + "-description"}
-                                        >
-                                            <td colspan="2">{description}</td>
+                                        <tr className="description">
+                                            <td colSpan="2">{description}</td>
                                         </tr>
                                     )}
                                     <tr className="spacer"></tr>
-                                </>
+                                </React.Fragment>
                             );
                         }
                     )}
