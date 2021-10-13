@@ -23,13 +23,16 @@ class ObjectView extends React.Component {
             }
         })
             .then(resp => resp.json())
+            .then(resp => {
+                // TODO: Look at `status` or return code or both?
+                if (resp.status != "success")
+                    throw `soc_collector responded: ${resp.status}`;
+                return resp.data;
+            })
             // TODO: Proper API call to get single object
             .then(data => data.filter(x => x._id == this.props.id)[0])
-            // .then(data => {
-            //     console.log(data);
-            //     return data;
-            // })
-            .then(object => this.setState({ object: object }));
+            .then(object => this.setState({ object: object }))
+            .catch(e => this.props.setError(e));
     }
 
     render() {

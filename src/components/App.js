@@ -40,8 +40,8 @@ class App extends React.Component {
         localStorage.removeItem("token");
     }
 
-    setError(msg) {
-        this.setState({ error: msg });
+    setError(e) {
+        this.setState({ error: e.message });
     }
 
     clearError() {
@@ -64,7 +64,7 @@ class App extends React.Component {
                 <Header clearToken={this.clearToken} />
                 <Switch>
                     <Route path="/:id">
-                        <MakeObjectView />
+                        <MakeObjectView setError={this.setError} />
                     </Route>
                     <Route path="/">
                         <List setError={this.setError} />
@@ -75,9 +75,9 @@ class App extends React.Component {
     }
 }
 
-function MakeObjectView() {
+function MakeObjectView(props) {
     let { id } = useParams();
-    return <ObjectView id={id} setError={this.setError} />;
+    return <ObjectView id={id} setError={props.setError} />;
 }
 
 export default App;

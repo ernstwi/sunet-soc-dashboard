@@ -41,7 +41,9 @@ class Login extends React.Component {
                 if (resp.status === 401) this.setState({ error: true });
                 else
                     this.props.setError(
-                        `Unexpected response status: ${resp.status} ${resp.statusText}`
+                        new Error(
+                            `Unexpected response status: ${resp.status} ${resp.statusText}`
+                        )
                     );
             });
     }
