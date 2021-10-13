@@ -1,0 +1,3 @@
+[submodule "soc_collector"]
+	path = soc_collector
+	url = git@git.sunet.se:soc_collector.git

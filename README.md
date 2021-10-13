@@ -2,7 +2,7 @@
 
 ## Development setup
 
-Run `soc_collector` checked out to tag `dashboard` on port 8000.
+Run `soc_collector` on port 8000. The commit pointed to by the `soc_collector` submodule is compatible with `main` in this repo.
 
 Populate `soc_collector` with data from `example_data.json`:
 
