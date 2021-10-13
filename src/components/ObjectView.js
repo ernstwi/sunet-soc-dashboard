@@ -17,7 +17,7 @@ class ObjectView extends React.Component {
     }
 
     getData() {
-        fetch("http://localhost:8000/sc/v0/get", {
+        fetch(`http://localhost:8000/sc/v0/get/${this.props.id}`, {
             headers: {
                 Authorization: "Basic " + btoa("user1:pw1")
             }
@@ -29,8 +29,6 @@ class ObjectView extends React.Component {
                     throw `soc_collector responded: ${resp.status}`;
                 return resp.data;
             })
-            // TODO: Proper API call to get single object
-            .then(data => data.filter(x => x._id == this.props.id)[0])
             .then(object => this.setState({ object: object }))
             .catch(e => this.props.setError(e));
     }
