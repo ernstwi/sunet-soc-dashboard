@@ -22,14 +22,22 @@ class ObjectView extends React.Component {
                 Authorization: "Basic " + btoa("user1:pw1")
             }
         })
-            .then(resp => resp.json())
+            // TODO: Look at `status` or return code or both?
             .then(resp => {
-                // TODO: Look at `status` or return code or both?
-                if (resp.status != "success")
-                    throw `soc_collector responded: ${resp.status}`;
-                return resp.data;
+                if (resp.status !== 200)
+                    throw `Unexpected HTTP response code from soc_collector: ${resp.status} ${resp.statusText}`;
+                this.setState({
+                    totalPages: resp.headers.get("X-Total-Count")
+                });
+                return resp.json();
             })
-            .then(object => this.setState({ object: object }))
+            .then(json => {
+                if (json.status != "success")
+                    throw `Unexpected status from soc_collector: ${json.status}`;
+                this.setState({
+                    object: json.data
+                });
+            })
             .catch(e => this.props.setError(e));
     }
 
