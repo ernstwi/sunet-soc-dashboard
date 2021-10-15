@@ -2,7 +2,6 @@ import React from "react";
 
 class ObjectComponent extends React.Component {
     render() {
-        console.log(this.props);
         let { user_presentation, ...rest } = this.props;
         return (
             <div className="object">

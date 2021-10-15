@@ -86,7 +86,6 @@ class List extends React.Component {
                 </div>
                 <div id="main">
                     {this.state.objects.map(data => {
-                        console.log(data);
                         return <ObjectComponent {...data} key={data._id} />;
                     })}
                 </div>
