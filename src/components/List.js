@@ -40,14 +40,22 @@ class List extends React.Component {
                 Authorization: "Basic " + btoa("user1:pw1")
             }
         })
-            .then(resp => resp.json())
+            // TODO: Look at `status` or return code or both?
             .then(resp => {
-                // TODO: Look at `status` or return code or both?
-                if (resp.status != "success")
-                    throw `soc_collector responded: ${resp.status}`;
-                return resp;
+                if (resp.status !== 200)
+                    throw `Unexpected HTTP response code from soc_collector: ${resp.status} ${resp.statusText}`;
+                this.setState({
+                    totalPages: resp.headers.get("X-Total-Count")
+                });
+                return resp.json();
             })
-            .then(resp => this.setState({ objects: resp.data }))
+            .then(json => {
+                if (json.status != "success")
+                    throw `Unexpected status from soc_collector: ${json.status}`;
+                this.setState({
+                    objects: json.data
+                });
+            })
             .catch(e => this.props.setError(e));
     }
 
@@ -93,7 +101,7 @@ class List extends React.Component {
                     <Pagination
                         activePage={this.state.page}
                         // totalPages={this.totalPages()}
-                        totalPages={5} // TODO
+                        totalPages={this.state.totalPages}
                         onPageChange={this.setPage}
                     />
                 </div>
