@@ -24,7 +24,7 @@ class List extends React.Component {
 
     // Fetch data from external source, update state
     getData() {
-        fetch("http://localhost:8000/sc/v0/get", {
+        fetch(`${process.env.COLLECTOR_URL}/sc/v0/get`, {
             headers: {
                 Authorization: "Basic " + btoa("user1:pw1")
             }
