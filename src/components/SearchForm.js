@@ -42,6 +42,26 @@ class SearchForm extends React.Component {
                 key: "port",
                 value: "port",
                 text: "Port"
+            },
+            {
+                key: "domain",
+                value: "domain",
+                text: "Domain"
+            },
+            {
+                key: "ip",
+                value: "ip",
+                text: "IP"
+            },
+            {
+                key: "asn",
+                value: "asn",
+                text: "ASN"
+            },
+            {
+                key: "asn_country_code",
+                value: "asn_country_code",
+                text: "ASN Country Code"
             }
         ];
         return (
