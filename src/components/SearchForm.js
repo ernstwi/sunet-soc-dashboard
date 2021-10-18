@@ -20,9 +20,9 @@ class SearchForm extends React.Component {
         this.submitSearch = this.submitSearch.bind(this);
     }
 
-    handleInput(e) {
+    handleInput(event, result) {
         this.setState({
-            [e.target.name]: e.target.value
+            [result.name]: result.value
         });
     }
 
