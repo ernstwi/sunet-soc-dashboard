@@ -100,7 +100,6 @@ class List extends React.Component {
                 <div id="pagination">
                     <Pagination
                         activePage={this.state.page}
-                        // totalPages={this.totalPages()}
                         totalPages={this.state.totalPages}
                         onPageChange={this.setPage}
                     />
