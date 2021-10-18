@@ -85,7 +85,8 @@ class List extends React.Component {
                 filter: {
                     field: field,
                     value: value
-                }
+                },
+                page: 1
             },
             this.getData
         );
