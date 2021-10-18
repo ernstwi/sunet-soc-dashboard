@@ -9,8 +9,9 @@ class SearchForm extends React.Component {
 
     constructor(props) {
         super(props);
+        // NOTE: This state is for UI only, List state is used for requests.
         this.state = {
-            field: "default-field",
+            field: "port",
             value: ""
         };
 
@@ -38,9 +39,9 @@ class SearchForm extends React.Component {
     render() {
         const searchOptions = [
             {
-                key: "default-field",
-                value: "default-field",
-                text: "Default field"
+                key: "port",
+                value: "port",
+                text: "Port"
             }
         ];
         return (
@@ -59,7 +60,7 @@ class SearchForm extends React.Component {
                     <Select
                         name="field"
                         options={searchOptions}
-                        defaultValue="default-field"
+                        defaultValue="port"
                         onChange={this.handleInput}
                     />
                     <Button type="submit">Search</Button>

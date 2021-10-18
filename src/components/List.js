@@ -10,27 +10,43 @@ class List extends React.Component {
         this.state = {
             objects: [],
             filter: {
-                field: "default-field",
-                value: ""
+                field: null,
+                value: null
             },
             page: 1,
             totalPages: 1
         };
 
+        this.filter = this.filter.bind(this);
+        this.filterString = this.filterString.bind(this);
         this.getData = this.getData.bind(this);
-        this.setPage = this.setPage.bind(this);
         this.queryString = this.queryString.bind(this);
+        this.setPage = this.setPage.bind(this);
     }
 
     componentDidMount() {
         this.getData();
     }
 
+    //
+    // Helpers
+    //
+
+    filterString() {
+        return this.state.filter.field == null ||
+            this.state.filter.value == null
+            ? null
+            : this.state.filter.field + "=" + this.state.filter.value;
+    }
+
     queryString() {
         return [
             `limit=${process.env.PER_PAGE}`,
-            `skip=${this.state.page * process.env.PER_PAGE}`
-        ].join("&");
+            `skip=${(this.state.page - 1) * process.env.PER_PAGE}`,
+            this.filterString()
+        ]
+            .filter(x => x !== null)
+            .join("&");
     }
 
     // Fetch data from external source, update state
@@ -58,6 +74,10 @@ class List extends React.Component {
             })
             .catch(e => this.props.setError(e));
     }
+
+    //
+    // Event handlers
+    //
 
     filter(field, value) {
         this.setState(
