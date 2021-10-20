@@ -5,9 +5,9 @@ class ObjectComponent extends React.Component {
         let { user_presentation, ...rest } = this.props;
         return (
             <div className="object">
-                <h1>
-                    <a href={`/${this.props._id}`}>Scan {this.props._id}</a>
-                </h1>
+                <div className="header">
+                    <a href={`/${this.props._id}`}>#{this.props._id}</a>
+                </div>
                 <GenericTable data={rest} />
                 <UserPresentation
                     description={user_presentation.description}

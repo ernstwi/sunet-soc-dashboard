@@ -54,6 +54,10 @@ body {
     background-color: red;
 }
 
+.object .header {
+    font-size: 2em;
+}
+
 .object td {
     padding-right: 2em;
 }
