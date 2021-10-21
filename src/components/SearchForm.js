@@ -1,6 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, Select, Input, Icon } from "semantic-ui-react";
+
+import Button from "@mui/material/Button";
+import ClearIcon from "@mui/icons-material/Clear";
+import FormControl from "@mui/material/FormControl";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
 
 class SearchForm extends React.Component {
     static propTypes = {
@@ -16,14 +24,7 @@ class SearchForm extends React.Component {
         };
 
         this.clearSearch = this.clearSearch.bind(this);
-        this.handleInput = this.handleInput.bind(this);
         this.submitSearch = this.submitSearch.bind(this);
-    }
-
-    handleInput(event, result) {
-        this.setState({
-            [result.name]: result.value
-        });
     }
 
     clearSearch(_) {
@@ -31,61 +32,66 @@ class SearchForm extends React.Component {
         this.props.filter(null, null);
     }
 
-    submitSearch(e) {
-        e.preventDefault();
-        this.props.filter(this.state.field, this.state.value);
+    submitSearch() {
+        // e.preventDefault();
+        if (this.state.value === "") this.clearSearch();
+        else this.props.filter(this.state.field, this.state.value);
     }
 
     render() {
-        const searchOptions = [
-            {
-                key: "port",
-                value: "port",
-                text: "Port"
-            },
-            {
-                key: "domain",
-                value: "domain",
-                text: "Domain"
-            },
-            {
-                key: "ip",
-                value: "ip",
-                text: "IP"
-            },
-            {
-                key: "asn",
-                value: "asn",
-                text: "ASN"
-            },
-            {
-                key: "asn_country_code",
-                value: "asn_country_code",
-                text: "ASN Country Code"
-            }
-        ];
         return (
-            <form onSubmit={this.submitSearch}>
-                <Input
-                    action
-                    type="text"
-                    name="value"
-                    placeholder="Search..."
-                    iconPosition="left"
-                    onChange={this.handleInput}
+            <>
+                <TextField
+                    fullWidth
+                    id="value"
                     value={this.state.value}
+                    onChange={event => {
+                        this.setState({
+                            value: event.target.value
+                        });
+                    }}
+                    onKeyDown={event => {
+                        if (event.key === "Enter") this.submitSearch();
+                        if (event.key === "Escape") this.clearSearch();
+                    }}
+                    placeholder="Search..."
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton onClick={this.clearSearch}>
+                                    {this.state.value !== "" && <ClearIcon />}
+                                </IconButton>
+                            </InputAdornment>
+                        )
+                    }}
+                    sx={{ width: 400 }}
+                />
+                <Select
+                    id="field"
+                    value={this.state.field}
+                    onChange={event => {
+                        this.setState({
+                            field: event.target.value
+                        });
+                    }}
+                    sx={{ width: 200, marginLeft: "1em" }}
                 >
-                    <input />
-                    <Icon name="delete" link onClick={this.clearSearch} />
-                    <Select
-                        name="field"
-                        options={searchOptions}
-                        defaultValue="port"
-                        onChange={this.handleInput}
-                    />
-                    <Button type="submit">Search</Button>
-                </Input>
-            </form>
+                    <MenuItem value="port">Port</MenuItem>
+                    <MenuItem value="domain">Domain</MenuItem>
+                    <MenuItem value="ip">IP</MenuItem>
+                    <MenuItem value="asn">ASN</MenuItem>
+                    <MenuItem value="asn_country_code">
+                        ASN Country Code
+                    </MenuItem>
+                </Select>
+                <Button
+                    variant="contained"
+                    onClick={this.submitSearch}
+                    sx={{ marginLeft: "1em" }}
+                >
+                    Search
+                </Button>
+            </>
         );
     }
 }

@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, Pagination } from "semantic-ui-react";
+
+import Pagination from "@mui/material/Pagination";
 
 import ObjectComponent from "./ObjectComponent";
 import SearchForm from "./SearchForm";
@@ -92,8 +93,9 @@ class List extends React.Component {
         );
     }
 
-    setPage(e, { activePage: n }) {
-        this.setState({ page: n }, () => {
+    setPage(event, value) {
+        this.setState({ page: value }, () => {
+            console.log(this.state);
             this.getData();
             window.scrollTo(0, 0);
         });
@@ -103,12 +105,7 @@ class List extends React.Component {
         return (
             <div id="list-container">
                 <div id="controls">
-                    <div id="action">
-                        <Button.Group>
-                            <Button>Action 1</Button>
-                            <Button>Action 2</Button>
-                        </Button.Group>
-                    </div>
+                    <div id="action"></div>
                     <div id="search">
                         <SearchForm filter={this.filter} />
                     </div>
@@ -120,9 +117,13 @@ class List extends React.Component {
                 </div>
                 <div id="pagination">
                     <Pagination
-                        activePage={this.state.page}
-                        totalPages={this.state.totalPages}
-                        onPageChange={this.setPage}
+                        page={this.state.page}
+                        count={this.state.totalPages}
+                        onChange={this.setPage}
+                        variant="outlined"
+                        shape="rounded"
+                        showFirstButton
+                        showLastButton
                     />
                 </div>
             </div>

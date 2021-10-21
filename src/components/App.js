@@ -6,7 +6,6 @@ import {
     Link,
     useParams
 } from "react-router-dom";
-import { Button } from "semantic-ui-react";
 
 import Error from "./Error";
 import Header from "./Header";

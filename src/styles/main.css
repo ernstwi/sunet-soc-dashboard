@@ -99,6 +99,10 @@ body {
     justify-content: center;
 }
 
+#list-container #search {
+    display: flex;
+}
+
 /* Login */
 
 #login-container {
@@ -137,10 +141,8 @@ body {
 /* Error */
 
 #error-container {
+    width: 100%;
     display: flex;
     justify-content: center;
-}
-
-#error-container > .ui.message {
     margin-top: 20vh;
 }
