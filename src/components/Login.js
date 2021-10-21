@@ -1,6 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, Input } from "semantic-ui-react";
+
+import Button from "@mui/material/Button";
+import Paper from "@mui/material/Paper";
+import TextField from "@mui/material/TextField";
 
 class Login extends React.Component {
     static propTypes = {
@@ -17,7 +20,6 @@ class Login extends React.Component {
             error: false
         };
 
-        this.handleInput = this.handleInput.bind(this);
         this.login = this.login.bind(this);
         this.logout = this.logout.bind(this);
     }
@@ -52,44 +54,51 @@ class Login extends React.Component {
         localStorage.removeItem("token");
     }
 
-    handleInput(e) {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
-    }
-
     render() {
         return (
             <div id="login-container">
-                <form
-                    id="login"
-                    onSubmit={e => {
-                        e.preventDefault();
-                        this.login(this.state.email, this.state.password);
-                    }}
-                >
-                    <h1></h1>
-                    <Input
+                <Paper id="login" variant="outlined" color="green">
+                    <TextField
                         type="text"
+                        required
                         name="email"
                         placeholder="Username..."
-                        onChange={this.handleInput}
-                        required
+                        onChange={event => {
+                            this.setState({
+                                email: event.target.value
+                            });
+                        }}
                     />
-                    <Input
+                    <TextField
                         type="password"
                         placeholder="Password..."
                         name="password"
-                        onChange={this.handleInput}
+                        onChange={event => {
+                            this.setState({
+                                password: event.target.value
+                            });
+                        }}
                         required
+                        sx={{
+                            marginTop: "1em"
+                        }}
                     />
-                    <Button color="green" className="submit" type="submit">
+                    <Button
+                        variant="contained"
+                        className="submit"
+                        onClick={e => {
+                            this.login(this.state.email, this.state.password);
+                        }}
+                        sx={{
+                            marginTop: "1em"
+                        }}
+                    >
                         Sign in
                     </Button>
                     {this.state.error && (
                         <p className="error">Wrong username or password</p>
                     )}
-                </form>
+                </Paper>
             </div>
         );
     }
