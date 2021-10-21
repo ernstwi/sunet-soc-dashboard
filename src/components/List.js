@@ -61,7 +61,7 @@ class List extends React.Component {
                 if (resp.status !== 200)
                     throw `Unexpected HTTP response code from soc_collector: ${resp.status} ${resp.statusText}`;
                 this.setState({
-                    totalPages: resp.headers.get("X-Total-Count")
+                    totalPages: parseInt(resp.headers.get("X-Total-Count"))
                 });
                 return resp.json();
             })
