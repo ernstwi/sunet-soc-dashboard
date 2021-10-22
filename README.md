@@ -2,7 +2,10 @@
 
 ## Development setup
 
-Run `soc_collector` and set env var `COLLECTOR_URL`.
+Env vars:
+- `COLLECTOR_URL`
+- `JWT_URL`
+- `PER_PAGE`
 
 The commit pointed to by the `soc_collector` submodule is compatible with `main` in this repo.
 

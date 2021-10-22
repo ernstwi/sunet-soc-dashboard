@@ -56,8 +56,8 @@ class App extends React.Component {
                     clearToken={this.clearToken}
                 />
             );
-        // if (this.state.token === null)
-        //     return <Login setToken={this.setToken} setError={this.setError} />;
+        if (this.state.token === null)
+            return <Login setToken={this.setToken} setError={this.setError} />;
         return (
             <Router>
                 <Header clearToken={this.clearToken} />
