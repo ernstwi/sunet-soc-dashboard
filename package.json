@@ -3,8 +3,8 @@
     "version": "1.0.0",
     "description": "",
     "scripts": {
-        "start": "parcel --port 8001 src/index.html",
-        "build": "parcel build src/index.html"
+        "start": "PER_PAGE=${PER_PAGE:=5} parcel --port 8001 src/index.html",
+        "build": "PER_PAGE=${PER_PAGE:=5} parcel build src/index.html"
     },
     "keywords": [],
     "author": "",
