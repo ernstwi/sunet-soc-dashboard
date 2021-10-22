@@ -58,9 +58,17 @@ class SearchForm extends React.Component {
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
-                                <IconButton onClick={this.clearSearch}>
-                                    {this.state.value !== "" && <ClearIcon />}
-                                </IconButton>
+                                {this.state.value !== "" && (
+                                    <IconButton
+                                        onClick={this.clearSearch}
+                                        sx={{
+                                            backgroundColor:
+                                                "inherit !important"
+                                        }}
+                                    >
+                                        <ClearIcon />
+                                    </IconButton>
+                                )}
                             </InputAdornment>
                         )
                     }}
