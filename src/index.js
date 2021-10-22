@@ -13,6 +13,14 @@ let global = createTheme({
                 disableRipple: true,
                 disableElevation: true
             }
+        },
+        MuiCssBaseline: {
+            styleOverrides: {
+                "*, *::before, *::after": {
+                    transition: "none !important",
+                    animation: "none !important"
+                }
+            }
         }
     }
 });
