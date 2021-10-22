@@ -59,13 +59,19 @@ class Login extends React.Component {
                 <Paper id="login" variant="outlined" color="green">
                     <TextField
                         type="text"
-                        required
                         name="email"
                         placeholder="Username..."
                         onChange={event => {
                             this.setState({
                                 email: event.target.value
                             });
+                        }}
+                        onKeyDown={event => {
+                            if (event.key === "Enter")
+                                this.login(
+                                    this.state.email,
+                                    this.state.password
+                                );
                         }}
                     />
                     <TextField
@@ -77,7 +83,13 @@ class Login extends React.Component {
                                 password: event.target.value
                             });
                         }}
-                        required
+                        onKeyDown={event => {
+                            if (event.key === "Enter")
+                                this.login(
+                                    this.state.email,
+                                    this.state.password
+                                );
+                        }}
                         sx={{
                             marginTop: "1em"
                         }}
