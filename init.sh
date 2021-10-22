@@ -4,13 +4,13 @@ export COUCHDB_NAME=test
 export COUCHDB_HOSTNAME=localhost
 cd soc_collector/docker/
 docker compose up -d
-read
+sleep 2
 
 cd ../demo/
 python ../src/wsgi.py &
 cd ../..
 go run jwt_mock.go &
-read
+sleep 2
 
 export PER_PAGE=2
 export COLLECTOR_URL=http://localhost:8000
