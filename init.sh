@@ -14,5 +14,5 @@ sleep 2
 
 export PER_PAGE=2
 export COLLECTOR_URL=http://localhost:8000
-export JWT_URL=:http://localhost:8080
+export JWT_URL=http://localhost:8080
 npm run start
