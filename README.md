@@ -2,21 +2,22 @@
 
 ## Development setup
 
-Env vars:
-- `COLLECTOR_URL`
-- `JWT_URL`
-- `PER_PAGE`
+Quick start:
+- `source init.sh`
+
+What it does:
+- Starts `soc_collector` listening on `COLLECTOR_URL`
+- Starts `jwt_mock.go` listening on `JWT_URL`
+- Starts `soc_dashboard` listening on `http://localhost:8001`
+
+---
 
 The commit pointed to by the `soc_collector` submodule is compatible with `main` in this repo.
 
-Populate `soc_collector` with data from `example_data.json`:
+---
+
+To populate `soc_collector` with data from `example_data.json`:
 
 ```
 cat example_data.json | curl -s -u user3:pw3 --data-binary @- ${COLLECTOR_URL}/sc/v0/add
-```
-
-Get dependencies and start the front end:
-
-```
-npm run start
 ```
