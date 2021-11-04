@@ -42,6 +42,7 @@ class SearchForm extends React.Component {
         return (
             <>
                 <TextField
+                    size="small"
                     fullWidth
                     id="value"
                     value={this.state.value}
@@ -75,6 +76,7 @@ class SearchForm extends React.Component {
                     sx={{ width: 400 }}
                 />
                 <Select
+                    size="small"
                     id="field"
                     value={this.state.field}
                     onChange={event => {
