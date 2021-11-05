@@ -1,19 +1,51 @@
 import React from "react";
 
+import Card from "@mui/material/Card";
+
 class ObjectComponent extends React.Component {
     render() {
-        let { user_presentation, ...rest } = this.props;
+        let {
+            _id,
+            _rev,
+            document_version,
+            user_presentation,
+            ip,
+            port,
+            whois_description,
+            asn,
+            asn_country_code,
+            ...rest
+        } = this.props;
         return (
-            <div className="object">
-                <div className="header">
-                    <a href={`/${this.props._id}`}>#{this.props._id}</a>
+            <Card className="object" variant="outlined">
+                <div className="id">
+                    <a href={`/${_id}`}>#{_id}</a>
                 </div>
-                <GenericTable data={rest} />
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Address</td>
+                            <td>{`${ip}:${port}`}</td>
+                        </tr>
+                        <tr>
+                            <td>Owner</td>
+                            <td>{whois_description}</td>
+                        </tr>
+                        <tr>
+                            <td>ASN</td>
+                            <td>{`${asn} (${asn_country_code})`}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                {/* TODO */}
+                {/* <GenericTable data={rest} /> */}
+
                 <UserPresentation
                     description={user_presentation.description}
                     data={user_presentation.data}
                 />
-            </div>
+            </Card>
         );
     }
 }
@@ -38,7 +70,7 @@ function GenericTable(props) {
 function UserPresentation(props) {
     return (
         <div className="user-presentation">
-            <div className="header">Scanner-unique data</div>
+            <hr />
             {props.description && (
                 <div className="description">{props.description}</div>
             )}

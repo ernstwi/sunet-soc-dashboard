@@ -37,8 +37,6 @@ body {
 
 /* Object */
 .object {
-    border: 1px solid black;
-    border-radius: 25px;
     padding: 2em;
     margin: 1em;
     width: 40em;
@@ -54,8 +52,9 @@ body {
     background-color: red;
 }
 
-.object .header {
-    font-size: 2em;
+.object .id {
+    float: right;
+    font-family: monospace;
 }
 
 .object td {
@@ -66,13 +65,8 @@ body {
     margin-top: 2em;
 }
 
-.object .user-presentation .header {
-    font-weight: bold;
-    font-size: 1.5em;
-    margin-bottom: 0.5em;
-}
-
 .object > .user-presentation > .description {
+    margin-top: 2em;
     font-style: italic;
     margin-bottom: 1em;
 }
