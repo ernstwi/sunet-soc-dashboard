@@ -17,7 +17,7 @@ class SearchForm extends React.Component {
 
     constructor(props) {
         super(props);
-        // NOTE: This state is for UI only, List state is used for requests.
+        // NOTE: This state is for UI only, List state's "filter" is used for requests.
         this.state = {
             field: "port",
             value: ""
