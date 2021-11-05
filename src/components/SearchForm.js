@@ -19,8 +19,8 @@ class SearchForm extends React.Component {
         super(props);
         // NOTE: This state is for UI only, List state's "filter" is used for requests.
         this.state = {
-            field: "port",
-            value: ""
+            searchField: "port",
+            searchValue: ""
         };
 
         this.clearSearch = this.clearSearch.bind(this);
@@ -28,14 +28,14 @@ class SearchForm extends React.Component {
     }
 
     clearSearch(_) {
-        this.setState({ value: "" });
+        this.setState({ searchValue: "" });
         this.props.filter(null, null);
     }
 
     submitSearch() {
         // e.preventDefault();
-        if (this.state.value === "") this.clearSearch();
-        else this.props.filter(this.state.field, this.state.value);
+        if (this.state.searchValue === "") this.clearSearch();
+        else this.props.filter(this.state.searchField, this.state.searchValue);
     }
 
     render() {
@@ -44,11 +44,11 @@ class SearchForm extends React.Component {
                 <TextField
                     size="small"
                     fullWidth
-                    id="value"
-                    value={this.state.value}
+                    id="searchValue"
+                    value={this.state.searchValue}
                     onChange={event => {
                         this.setState({
-                            value: event.target.value
+                            searchValue: event.target.value
                         });
                     }}
                     onKeyDown={event => {
@@ -71,11 +71,11 @@ class SearchForm extends React.Component {
                 />
                 <Select
                     size="small"
-                    id="field"
-                    value={this.state.field}
+                    id="searchField"
+                    value={this.state.searchField}
                     onChange={event => {
                         this.setState({
-                            field: event.target.value
+                            searchField: event.target.value
                         });
                     }}
                     sx={{ width: 200, marginLeft: "1em" }}
