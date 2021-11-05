@@ -60,9 +60,10 @@ class SearchForm extends React.Component {
                         endAdornment: (
                             <InputAdornment position="end">
                                 {this.state.searchValue !== "" && (
-                                    <IconButton onClick={this.clearSearch}>
-                                        <ClearIcon />
-                                    </IconButton>
+                                    <ClearIcon
+                                        variant="clickable"
+                                        onClick={this.clearSearch}
+                                    />
                                 )}
                             </InputAdornment>
                         )

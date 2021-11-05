@@ -14,12 +14,15 @@ let global = createTheme({
                 disableElevation: true
             }
         },
-        MuiIconButton: {
-            styleOverrides: {
-                root: {
-                    backgroundColor: "inherit !important"
+        MuiSvgIcon: {
+            variants: [
+                {
+                    props: { variant: "clickable" },
+                    style: {
+                        cursor: "pointer"
+                    }
                 }
-            }
+            ]
         },
         MuiCssBaseline: {
             styleOverrides: {
