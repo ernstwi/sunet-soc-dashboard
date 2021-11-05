@@ -42,10 +42,11 @@ class SearchForm extends React.Component {
         return (
             <>
                 <TextField
-                    size="small"
                     fullWidth
-                    id="searchValue"
+                    size="small"
+                    sx={{ width: 400 }}
                     value={this.state.searchValue}
+                    placeholder="Search..."
                     onChange={event => {
                         this.setState({
                             searchValue: event.target.value
@@ -55,7 +56,6 @@ class SearchForm extends React.Component {
                         if (event.key === "Enter") this.submitSearch();
                         if (event.key === "Escape") this.clearSearch();
                     }}
-                    placeholder="Search..."
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
@@ -68,18 +68,16 @@ class SearchForm extends React.Component {
                             </InputAdornment>
                         )
                     }}
-                    sx={{ width: 400 }}
                 />
                 <Select
                     size="small"
-                    id="searchField"
+                    sx={{ width: 200, marginLeft: "1em" }}
                     value={this.state.searchField}
                     onChange={event => {
                         this.setState({
                             searchField: event.target.value
                         });
                     }}
-                    sx={{ width: 200, marginLeft: "1em" }}
                 >
                     <MenuItem value="port">Port</MenuItem>
                     <MenuItem value="domain">Domain</MenuItem>
@@ -91,8 +89,8 @@ class SearchForm extends React.Component {
                 </Select>
                 <Button
                     variant="contained"
-                    onClick={this.submitSearch}
                     sx={{ marginLeft: "1em" }}
+                    onClick={this.submitSearch}
                 >
                     Search
                 </Button>
