@@ -14,6 +14,13 @@ let global = createTheme({
                 disableElevation: true
             }
         },
+        MuiIconButton: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: "inherit !important"
+                }
+            }
+        },
         MuiCssBaseline: {
             styleOverrides: {
                 "*, *::before, *::after": {
