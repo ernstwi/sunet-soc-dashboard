@@ -10,7 +10,6 @@ let global = createTheme({
     components: {
         MuiButton: {
             defaultProps: {
-                disableRipple: true,
                 disableElevation: true
             }
         },
@@ -24,6 +23,8 @@ let global = createTheme({
                 }
             ]
         },
+        // Disable all animations
+        // https://mui.com/getting-started/faq/#how-can-i-disable-transitions-globally
         MuiCssBaseline: {
             styleOverrides: {
                 "*, *::before, *::after": {
