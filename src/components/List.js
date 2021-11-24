@@ -54,7 +54,7 @@ class List extends React.Component {
     getData() {
         fetch(`${process.env.COLLECTOR_URL}/sc/v0/get?${this.queryString()}`, {
             headers: {
-                Authorization: "Basic " + btoa("user1:pw1")
+                Authorization: "Bearer " + localStorage.getItem("token")
             }
         })
             // TODO: Look at `status` or return code or both?
@@ -70,7 +70,7 @@ class List extends React.Component {
                 if (json.status != "success")
                     throw `Unexpected status from soc_collector: ${json.status}`;
                 this.setState({
-                    objects: json.data
+                    objects: json.docs
                 });
             })
             .catch(e => this.props.setError(e));
@@ -95,7 +95,6 @@ class List extends React.Component {
 
     setPage(event, value) {
         this.setState({ page: value }, () => {
-            console.log(this.state);
             this.getData();
             window.scrollTo(0, 0);
         });
