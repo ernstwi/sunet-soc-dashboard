@@ -35,6 +35,7 @@ class ObjectComponent extends React.Component {
                             <td>ASN</td>
                             <td>{`${asn} (${asn_country_code})`}</td>
                         </tr>
+                        {/* TODO: Fill out with more info */}
                     </tbody>
                 </table>
 
