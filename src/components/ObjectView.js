@@ -28,9 +28,6 @@ class ObjectView extends React.Component {
                     throw new Error(
                         `Unexpected HTTP response code from soc_collector: ${resp.status} ${resp.statusText}`
                     );
-                this.setState({
-                    totalPages: resp.headers.get("X-Total-Count")
-                });
                 return resp.json();
             })
             .then(json => {
