@@ -5,6 +5,11 @@ body {
     line-height: 1.2;
 }
 
+a,
+a:visited {
+    color: blue;
+}
+
 #root {
     display: flex;
 }
@@ -59,24 +64,6 @@ body {
 
 .object td {
     padding-right: 2em;
-}
-
-.object .user-presentation {
-    margin-top: 2em;
-}
-
-.object > .user-presentation > .description {
-    margin-top: 2em;
-    font-style: italic;
-    margin-bottom: 1em;
-}
-
-.object > .user-presentation > table .description {
-    font-style: italic;
-}
-
-.object > .user-presentation > table .spacer {
-    height: 1em;
 }
 
 /* List */

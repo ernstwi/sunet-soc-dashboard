@@ -1,50 +1,57 @@
 import React from "react";
 
+import Alert from "@mui/material/Alert";
 import Card from "@mui/material/Card";
 
 class ObjectComponent extends React.Component {
     render() {
-        let {
-            _id,
-            _rev,
-            document_version,
-            user_presentation,
-            ip,
-            port,
-            whois_description,
-            asn,
-            asn_country_code,
-            ...rest
-        } = this.props;
         return (
             <Card className="object" variant="outlined">
                 <div className="id">
-                    <a href={`/${_id}`}>#{_id}</a>
+                    <a href={`/${this.props._id}`}>#{this.props._id}</a>
                 </div>
                 <table>
                     <tbody>
                         <tr>
-                            <td>Address</td>
-                            <td>{`${ip}:${port}`}</td>
+                            <td>Domain</td>
+                            <td>{this.props.domain}</td>
+                        </tr>
+                        <tr>
+                            <td>Endpoint</td>
+                            <td>{`${this.props.ip}:${this.props.port}`}</td>
+                        </tr>
+                        <tr>
+                            <td>Hostname</td>
+                            <td>{this.props.ptr}</td>
                         </tr>
                         <tr>
                             <td>Owner</td>
-                            <td>{whois_description}</td>
+                            <td>{this.props.whois_description}</td>
                         </tr>
                         <tr>
                             <td>ASN</td>
-                            <td>{`${asn} (${asn_country_code})`}</td>
+                            <td>{`${this.props.asn} (${this.props.asn_country_code})`}</td>
                         </tr>
-                        {/* TODO: Fill out with more info */}
+                        <tr>
+                            <td>Abuse mail</td>
+                            <td>{this.props.abuse_mail}</td>
+                        </tr>
+                        <tr>
+                            <td>Scan finished at</td>
+                            <td>{this.props.timestamp_in_utc}</td>
+                        </tr>
                     </tbody>
                 </table>
 
-                {/* TODO */}
-                {/* <GenericTable data={rest} /> */}
+                {this.props.user_presentation.description && (
+                    <Alert severity="info" sx={{ marginTop: "1em" }}>
+                        {this.props.user_presentation.description}
+                    </Alert>
+                )}
 
                 <UserPresentation
-                    description={user_presentation.description}
-                    data={user_presentation.data}
+                    description={this.props.user_presentation.description}
+                    data={this.props.user_presentation.data}
                 />
             </Card>
         );
@@ -70,34 +77,31 @@ function GenericTable(props) {
 
 function UserPresentation(props) {
     return (
-        <div className="user-presentation">
-            <hr />
-            {props.description && (
-                <div className="description">{props.description}</div>
+        <div className="user-presentation" style={{ marginTop: "2em" }}>
+            {Object.entries(props.data).map(
+                ([key, { data, display_name, description }]) => (
+                    <UserPresentationElement
+                        key={key}
+                        data={data}
+                        display_name={display_name}
+                        description={description}
+                    />
+                )
             )}
-            <table>
-                <tbody>
-                    {Object.entries(props.data).map(
-                        ([key, { data, display_name, description }]) => {
-                            return (
-                                <React.Fragment key={key}>
-                                    <tr>
-                                        <td>{display_name}</td>
-                                        <td>{data.toString()}</td>
-                                    </tr>
-                                    {description && (
-                                        <tr className="description">
-                                            <td colSpan="2">{description}</td>
-                                        </tr>
-                                    )}
-                                    <tr className="spacer"></tr>
-                                </React.Fragment>
-                            );
-                        }
-                    )}
-                </tbody>
-            </table>
         </div>
+    );
+}
+
+function UserPresentationElement(props) {
+    return (
+        <Card variant="outlined" sx={{ padding: "1em", marginTop: "1em" }}>
+            <b>{props.display_name}</b>: {props.data.toString()}
+            {props.description && (
+                <Alert severity="info" sx={{ marginTop: "0.5em" }}>
+                    {props.description}
+                </Alert>
+            )}
+        </Card>
     );
 }
 
