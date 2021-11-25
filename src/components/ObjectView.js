@@ -25,7 +25,9 @@ class ObjectView extends React.Component {
             // TODO: Look at `status` or return code or both?
             .then(resp => {
                 if (resp.status !== 200)
-                    throw `Unexpected HTTP response code from soc_collector: ${resp.status} ${resp.statusText}`;
+                    throw new Error(
+                        `Unexpected HTTP response code from soc_collector: ${resp.status} ${resp.statusText}`
+                    );
                 this.setState({
                     totalPages: resp.headers.get("X-Total-Count")
                 });
@@ -33,7 +35,9 @@ class ObjectView extends React.Component {
             })
             .then(json => {
                 if (json.status != "success")
-                    throw `Unexpected status from soc_collector: ${json.status}`;
+                    throw new Error(
+                        `Unexpected status from soc_collector: ${json.status}`
+                    );
                 this.setState({
                     object: json.docs
                 });

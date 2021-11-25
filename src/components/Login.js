@@ -17,7 +17,7 @@ class Login extends React.Component {
         this.state = {
             email: "",
             password: "",
-            error: false
+            loginFailed: false
         };
 
         this.login = this.login.bind(this);
@@ -31,21 +31,20 @@ class Login extends React.Component {
             headers: { Authorization: "Basic " + btoa(email + ":" + password) }
         })
             .then(resp => {
-                if (resp.status !== 200) throw resp;
+                if (resp.status === 401) {
+                    // Unauthorized: Wrong email/password
+                    this.setState({ loginFailed: true });
+                    return;
+                }
+                if (resp.status !== 200)
+                    throw new Error(
+                        `Unexpected HTTP response code from JWT server: ${resp.status} ${resp.statusText}`
+                    );
                 return resp;
             })
             .then(resp => resp.json())
             .then(data => {
                 this.props.setToken(data.access_token);
-            })
-            .catch(resp => {
-                if (resp.status === 401) this.setState({ error: true });
-                else
-                    this.props.setError(
-                        new Error(
-                            `Unexpected response status: ${resp.status} ${resp.statusText}`
-                        )
-                    );
             });
     }
 
@@ -106,7 +105,7 @@ class Login extends React.Component {
                     >
                         Sign in
                     </Button>
-                    {this.state.error && (
+                    {this.state.loginFailed && (
                         <p className="error">Wrong username or password</p>
                     )}
                 </Paper>
