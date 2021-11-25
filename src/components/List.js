@@ -54,7 +54,7 @@ class List extends React.Component {
     getData() {
         fetch(`${process.env.COLLECTOR_URL}/sc/v0/get?${this.queryString()}`, {
             headers: {
-                Authorization: "Bearer " + localStorage.getItem("token")
+                Authorization: "Bearer " + this.props.token
             }
         })
             // TODO: Look at `status` or return code or both?

@@ -49,7 +49,7 @@ class Login extends React.Component {
     }
 
     logout() {
-        localStorage.removeItem("token");
+        this.props.clearToken();
     }
 
     render() {
