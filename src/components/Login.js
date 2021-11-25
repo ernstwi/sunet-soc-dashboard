@@ -32,6 +32,9 @@ class Login extends React.Component {
         })
             .then(resp => {
                 if (resp.status === 401) {
+                    // TODO: CORS fails on requests with bad credentials, so
+                    // this path is never taken. Fix this in auth-server-poc.
+
                     // Unauthorized: Wrong email/password
                     this.setState({ loginFailed: true });
                     return;
