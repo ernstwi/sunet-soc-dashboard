@@ -42,36 +42,25 @@ class ObjectComponent extends React.Component {
                         </tr>
                     </tbody>
                 </table>
-
-                {this.props.user_presentation.description && (
-                    <Alert severity="info" sx={{ marginTop: "1em" }}>
-                        {this.props.user_presentation.description}
-                    </Alert>
-                )}
-
-                <UserPresentation
-                    description={this.props.user_presentation.description}
-                    data={this.props.user_presentation.data}
-                />
+                {!this.props.summary && <Details {...this.props} />}
             </Card>
         );
     }
 }
 
-function GenericTable(props) {
+function Details(props) {
     return (
-        <table>
-            <tbody>
-                {Object.entries(props.data).map(([key, value]) => {
-                    return (
-                        <tr key={key}>
-                            <td>{key}</td>
-                            <td>{value}</td>
-                        </tr>
-                    );
-                })}
-            </tbody>
-        </table>
+        <>
+            {props.user_presentation.description && (
+                <Alert severity="info" sx={{ marginTop: "1em" }}>
+                    {props.user_presentation.description}
+                </Alert>
+            )}
+            <UserPresentation
+                description={props.user_presentation.description}
+                data={props.user_presentation.data}
+            />
+        </>
     );
 }
 
@@ -102,6 +91,23 @@ function UserPresentationElement(props) {
                 </Alert>
             )}
         </Card>
+    );
+}
+
+function GenericTable(props) {
+    return (
+        <table>
+            <tbody>
+                {Object.entries(props.data).map(([key, value]) => {
+                    return (
+                        <tr key={key}>
+                            <td>{key}</td>
+                            <td>{value}</td>
+                        </tr>
+                    );
+                })}
+            </tbody>
+        </table>
     );
 }
 

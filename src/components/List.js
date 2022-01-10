@@ -115,7 +115,13 @@ class List extends React.Component {
                 </div>
                 <div id="main">
                     {this.state.objects.map(data => {
-                        return <ObjectComponent {...data} key={data._id} />;
+                        return (
+                            <ObjectComponent
+                                summary={true}
+                                {...data}
+                                key={data._id}
+                            />
+                        );
                     })}
                 </div>
                 <div id="pagination">
