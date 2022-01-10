@@ -1,7 +1,11 @@
 import React from "react";
 
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
 import Alert from "@mui/material/Alert";
 import Card from "@mui/material/Card";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 class ObjectComponent extends React.Component {
     render() {
@@ -42,14 +46,14 @@ class ObjectComponent extends React.Component {
                         </tr>
                     </tbody>
                 </table>
-                {!this.props.summary && <Details {...this.props} />}
+                <Details {...this.props} />
             </Card>
         );
     }
 }
 
 function Details(props) {
-    return (
+    let content = (
         <>
             {props.user_presentation.description && (
                 <Alert severity="info" sx={{ marginTop: "1em" }}>
@@ -62,6 +66,19 @@ function Details(props) {
             />
         </>
     );
+    if (props.summary) {
+        return (
+            <div>
+                <Accordion elevation={0} disableGutters={true}>
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon fontSize="small" />}
+                    ></AccordionSummary>
+                    <AccordionDetails>{content}</AccordionDetails>
+                </Accordion>
+            </div>
+        );
+    }
+    return content;
 }
 
 function UserPresentation(props) {

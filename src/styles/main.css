@@ -57,6 +57,17 @@ a:visited {
     padding-right: 2em;
 }
 
+.object .MuiAccordionSummary-content {
+    display: none !important;
+}
+
+.object .MuiAccordion-root {
+    margin-top: 2em !important;
+}
+
+.object .MuiAccordionSummary-root {
+}
+
 /* List */
 
 #list-container > #controls {
