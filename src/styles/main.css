@@ -16,10 +16,6 @@ a:visited {
     color: blue;
 }
 
-#root {
-    display: flex;
-}
-
 #list-container,
 #object-view {
     width: 100%;
@@ -27,23 +23,19 @@ a:visited {
 }
 
 /* Header */
-
 #header {
-    margin: 0;
-    border-right: 1px solid black;
-    width: 10em;
+    padding: 2em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-#header li {
-    list-style-type: none;
-}
-
-#header ul {
-    padding-left: 2em;
-}
-
-#header hr {
-    width: 70%;
+#header #title a {
+    text-decoration: none;
+    color: pink;
+    font-size: 2em;
+    font-weight: bold;
+    font-style: italic;
 }
 
 /* Object */
