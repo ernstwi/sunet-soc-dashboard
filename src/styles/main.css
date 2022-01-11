@@ -30,6 +30,29 @@ a:visited {
     font-style: italic;
 }
 
+#header #navigation {
+    flex-grow: 1;
+    margin-left: 3em;
+    margin-right: 3em;
+    font-size: 1.2em;
+}
+
+#header #navigation a {
+    color: #7d9cb8;
+    text-decoration: none;
+}
+
+#header #navigation a.active {
+    font-weight: bold;
+}
+
+#header #separator {
+    display: inline-block;
+    width: 2em;
+    text-align: center;
+    color: #9c9c9c;
+}
+
 /* Object */
 
 .object {

@@ -14,6 +14,15 @@ class Header extends React.Component {
                 <div id="title">
                     <Link to="/">✨ SOC Dashboard</Link>
                 </div>
+                <div id="navigation">
+                    <Link to="/" className="active">
+                        Example Navigation
+                    </Link>
+                    <span id="separator">•</span>
+                    <Link to="/">Example Navigation</Link>
+                    <span id="separator">•</span>
+                    <Link to="/">Example Navigation</Link>
+                </div>
                 <div id="right">
                     <Button
                         variant="contained"
