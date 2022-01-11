@@ -100,7 +100,11 @@ function UserPresentation(props) {
 
 function UserPresentationElement(props) {
     return (
-        <Card variant="outlined" sx={{ padding: "1em", marginTop: "1em" }}>
+        <Card
+            className="user-presentation-element"
+            variant="outlined"
+            sx={{ padding: "1em", marginTop: "1em" }}
+        >
             <b>{props.display_name}</b>: {props.data.toString()}
             {props.description && (
                 <Alert severity="info" sx={{ marginTop: "0.5em" }}>
