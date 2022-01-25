@@ -43,7 +43,7 @@ class List extends React.Component {
     queryString() {
         return [
             `limit=${process.env.PER_PAGE}`,
-            `skip=${(this.state.page - 1) * process.env.PER_PAGE}`,
+            `skip=${(this.state.page - 1) * window.injectedEnv.PER_PAGE}`,
             this.filterString()
         ]
             .filter(x => x !== null)
@@ -52,7 +52,7 @@ class List extends React.Component {
 
     // Fetch data from external source, update state
     getData() {
-        fetch(`${process.env.COLLECTOR_URL}/sc/v0/get?${this.queryString()}`, {
+	fetch(window.injectedEnv.COLLECTOR_URL + "/sc/v0/get?" + this.queryString(), {
             headers: {
                 Authorization: "Bearer " + this.props.token
             }
