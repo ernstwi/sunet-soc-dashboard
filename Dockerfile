@@ -10,7 +10,8 @@ ARG COLLECTOR_URL
 ARG JWT_URL
 ARG PER_PAGE
 
-COPY . ./
+COPY src src
+COPY .babelrc .eslintrc.json .parcelrc ./
 
 RUN npm run build
 
