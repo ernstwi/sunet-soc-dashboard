@@ -52,11 +52,16 @@ class List extends React.Component {
 
     // Fetch data from external source, update state
     getData() {
-	fetch(window.injectedEnv.COLLECTOR_URL + "/sc/v0/get?" + this.queryString(), {
-            headers: {
-                Authorization: "Bearer " + this.props.token
+        fetch(
+            window.injectedEnv.COLLECTOR_URL +
+                "/sc/v0/get?" +
+                this.queryString(),
+            {
+                headers: {
+                    Authorization: "Bearer " + this.props.token
+                }
             }
-        })
+        )
             // TODO: Look at `status` or return code or both?
             .then(resp => {
                 if (resp.status !== 200)
