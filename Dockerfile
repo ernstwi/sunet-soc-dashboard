@@ -20,11 +20,13 @@ WORKDIR /usr/share/nginx/html
 
 COPY --from=build /usr/src/app/dist ./
 
+COPY certs/* /etc/ssl/dashboard/
+COPY nginx-default.conf /etc/nginx/conf.d/
 COPY nginx-entrypoint.sh .
 COPY inject_template.js .
 RUN apt update
 RUN apt install -y gettext
 
-EXPOSE 80
+EXPOSE 443
 
 ENTRYPOINT ["sh", "./nginx-entrypoint.sh"]

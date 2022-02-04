@@ -3,8 +3,13 @@ services:
   dashboard:
     build: .
     ports:
-      - 8001:80
+      - 443:443
     environment:
       - PER_PAGE
       - COLLECTOR_URL
       - JWT_URL
+    volumes:
+      - certs:/etc/ssl/dashboard/
+
+volumes:
+  certs:
