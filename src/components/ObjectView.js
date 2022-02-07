@@ -17,7 +17,7 @@ class ObjectView extends React.Component {
     }
 
     getData() {
-        fetch(`${process.env.COLLECTOR_URL}/sc/v0/get/${this.props.id}`, {
+        fetch(`${window.injectedEnv.COLLECTOR_URL}/sc/v0/get/${this.props.id}`, {
             headers: {
                 Authorization: "Bearer " + this.props.token
             }

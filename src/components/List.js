@@ -42,7 +42,7 @@ class List extends React.Component {
 
     queryString() {
         return [
-            `limit=${process.env.PER_PAGE}`,
+            `limit=${window.injectedEnv.PER_PAGE}`,
             `skip=${(this.state.page - 1) * window.injectedEnv.PER_PAGE}`,
             this.filterString()
         ]
