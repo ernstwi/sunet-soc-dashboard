@@ -19,8 +19,6 @@
         "@mui/icons-material": "^5.0.4",
         "@mui/material": "^5.0.4",
         "dateformat": "^4.5.1",
-        "eslint": "^7.29.0",
-        "eslint-plugin-react": "^7.14.3",
         "parcel": "^2.0.0-rc.0",
         "parcel-resolver-ignore": "2.0.0",
         "prettier": "^2.3.2",
