@@ -11,7 +11,7 @@ ARG JWT_URL
 ARG PER_PAGE
 
 COPY src src
-COPY .babelrc .eslintrc.json .parcelrc ./
+COPY .parcelrc ./
 
 RUN npm run build
 
