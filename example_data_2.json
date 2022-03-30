@@ -1,0 +1,49 @@
+{
+    "document_version": 1,
+    "ip": "192.0.2.20",
+    "port": 80,
+    "whois_description": "SOMENET",
+    "asn": "AS65001",
+    "asn_country_code": "SE",
+    "ptr": "host11.test.soc.sunet.se",
+    "abuse_mail": "abuse@test.soc.sunet.se",
+    "domain": "sunet.se",
+    "timestamp_in_utc": "2021-06-30T10:00 UTC",
+    "system_name": "VMware ESXi 6.7.0 build-17700523",
+    "result": [
+        {
+            "cve": "CVE-2019-0001",
+            "vulnerable": false
+        },
+        {
+            "cve": "CVE-2015-0002",
+            "vulnerable": false
+        },
+        {
+            "cve": "CVE-2015-0003",
+            "vulnerable": true
+        },
+        {
+            "cve": "CVE-2015-0004",
+            "vulnerable": false
+        },
+        {
+            "cve": "CVE-2015-0005",
+            "vulnerable": true
+        }
+    ],
+    "user_presentation": {
+        "description": "A presentation of the observation as a whole (optional)",
+        "data": {
+            "subject_cn": {
+                "data": "unknown",
+                "display_name": "Subject Common Name",
+                "description": "A description of this key (optional)"
+            },
+            "end_of_general_support": {
+                "data": true,
+                "display_name": "End of general support"
+            }
+        }
+    }
+}
