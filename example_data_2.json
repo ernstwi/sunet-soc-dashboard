@@ -32,18 +32,16 @@
             "vulnerable": true
         }
     ],
-    "user_presentation": {
-        "description": "A presentation of the observation as a whole (optional)",
-        "data": {
-            "subject_cn": {
-                "data": "unknown",
-                "display_name": "Subject Common Name",
-                "description": "A description of this key (optional)"
-            },
-            "end_of_general_support": {
-                "data": true,
-                "display_name": "End of general support"
-            }
+    "description": "A presentation of the observation as a whole (optional)",
+    "custom_data": {
+        "subject_cn": {
+            "data": "unknown",
+            "display_name": "Subject Common Name",
+            "description": "A description of this key (optional)"
+        },
+        "end_of_general_support": {
+            "data": true,
+            "display_name": "End of general support"
         }
     }
 }

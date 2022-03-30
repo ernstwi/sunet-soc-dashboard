@@ -41,17 +41,15 @@ class ScanDetail extends React.Component {
                     </tbody>
                 </table>
 
-                {this.props.user_presentation.description && (
+                {this.props.description && (
                     <>
                         <br />
-                        <Alert severity="info">
-                            {this.props.user_presentation.description}
-                        </Alert>
+                        <Alert severity="info">{this.props.description}</Alert>
                     </>
                 )}
 
                 <h2>Custom info</h2>
-                <Details {...this.props} />
+                <Custom {...this.props.custom_data} />
 
                 <h2>Latest scan | {this.props.timestamp_in_utc}</h2>
                 <div id="cves">
@@ -66,35 +64,26 @@ class ScanDetail extends React.Component {
     }
 }
 
-function Details(props) {
+function Custom(props) {
     return (
-        <>
-            <UserPresentation
-                description={props.user_presentation.description}
-                data={props.user_presentation.data}
-            />
-        </>
-    );
-}
-
-function UserPresentation(props) {
-    return (
-        <table className="user-presentation">
-            {Object.entries(props.data).map(
-                ([key, { data, display_name, description }]) => (
-                    <UserPresentationElement
-                        key={key}
-                        data={data}
-                        display_name={display_name}
-                        description={description}
-                    />
-                )
-            )}
+        <table>
+            <tbody>
+                {Object.entries(props).map(
+                    ([key, { data, display_name, description }]) => (
+                        <CustomElement
+                            key={key}
+                            data={data}
+                            display_name={display_name}
+                            description={description}
+                        />
+                    )
+                )}
+            </tbody>
         </table>
     );
 }
 
-function UserPresentationElement(props) {
+function CustomElement(props) {
     return (
         <tr>
             <td>{props.display_name}</td>
