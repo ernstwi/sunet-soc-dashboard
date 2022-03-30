@@ -1,6 +1,7 @@
 import React from "react";
 
 import Alert from "@mui/material/Alert";
+import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 
 class ScanDetail extends React.Component {
@@ -51,7 +52,21 @@ class ScanDetail extends React.Component {
                 <h2>Custom info</h2>
                 <Custom {...this.props.custom_data} />
 
-                <h2>Latest scan | {this.props.timestamp_in_utc}</h2>
+                <h2
+                    style={{
+                        display: "flex",
+                        justifyContent: "space-between"
+                    }}
+                >
+                    <div>
+                        Latest scan: &nbsp;&nbsp;&nbsp;
+                        {this.props.timestamp_in_utc}
+                    </div>
+                    <div>
+                        <Button variant="contained">Re-scan</Button>
+                    </div>
+                </h2>
+
                 <div id="cves">
                     {this.props.result
                         .sort((a, b) => (a.vulnerable ? -1 : 1))

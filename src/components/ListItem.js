@@ -1,5 +1,6 @@
 import React from "react";
 
+import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 
 class ListItem extends React.Component {
@@ -32,6 +33,9 @@ class ListItem extends React.Component {
                     >
                         {this.props.cve}
                     </Card>
+                </td>
+                <td>
+                    <Button variant="contained">Re-scan</Button>
                 </td>
             </tr>
         );
