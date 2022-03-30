@@ -121,6 +121,19 @@ class ListView extends React.Component {
                 <table id="main">
                     <tbody>
                         {this.state.scans
+                            .sort((a, b) =>
+                                Date.parse(
+                                    a.timestamp_in_utc.replace(" UTC", "") >
+                                        Date.parse(
+                                            b.timestamp_in_utc.replace(
+                                                " UTC",
+                                                ""
+                                            )
+                                        )
+                                )
+                                    ? 1
+                                    : -1
+                            )
                             .map(scan =>
                                 scan.result
                                     .filter(res => res.vulnerable)
