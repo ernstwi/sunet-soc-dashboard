@@ -1,3 +1,5 @@
+/* App */
+
 body {
     background: #fff;
     font-size: 14px;
@@ -53,45 +55,39 @@ a:visited {
     color: #9c9c9c;
 }
 
-/* Object */
+/* ScanView */
 
-.object {
+.scan-detail {
     padding: 2em;
     margin: 2em;
-    width: 40em;
+    width: 50em;
     margin-left: auto;
     margin-right: auto;
 }
 
-.object.good {
-    background-color: green;
-}
-
-.object.bad {
-    background-color: red;
-}
-
-.object .id {
+.scan-detail .id {
     float: right;
     font-family: monospace;
 }
 
-.object td {
+.scan-detail td {
     padding-right: 2em;
 }
 
-.object .MuiAccordionSummary-content {
-    display: none !important;
+.scan-detail .cve {
+    background-color: #c6ff85;
+    border: 3px solid #62b800;
+    padding: 0.5em;
+    margin-top: 0.5em;
+    text-align: center;
 }
 
-.object .MuiAccordion-root {
-    margin-top: 2em !important;
+.scan-detail .cve.vulnerable {
+    background-color: #ff8585;
+    border: 3px solid #f74343;
 }
 
-.object .MuiAccordionSummary-root {
-}
-
-/* List */
+/* ListView */
 
 #list-container > #controls {
     display: flex;
@@ -109,13 +105,32 @@ a:visited {
     display: flex;
 }
 
-#list-container > #main > .MuiCard-root:nth-child(odd),
-#list-container > #main > .MuiCard-root:nth-child(odd) .MuiAccordion-root,
-#list-container
-    > #main
-    > .MuiCard-root:nth-child(odd)
-    .user-presentation-element {
-    background-color: #fcfcfc;
+#list-container > #main {
+    width: 80em;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+}
+
+.list-item td {
+    padding-left: 2em;
+    padding-right: 2em;
+    margin: 0;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+}
+
+.list-item .cve {
+    background-color: #c6ff85;
+    border: 3px solid #62b800;
+    padding: 0.5em;
+    margin: 0.5em;
+    text-align: center;
+}
+
+.list-item .cve.vulnerable {
+    background-color: #ff8585;
+    border: 3px solid #f74343;
 }
 
 /* Login */

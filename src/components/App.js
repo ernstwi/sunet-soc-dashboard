@@ -9,9 +9,9 @@ import {
 
 import Error from "./Error";
 import Header from "./Header";
-import List from "./List";
+import ListView from "./ListView";
 import Login from "./Login";
-import ObjectView from "./ObjectView";
+import ScanView from "./ScanView";
 
 import "../styles/main.css";
 
@@ -63,13 +63,13 @@ class App extends React.Component {
                 <Header clearToken={this.clearToken} />
                 <Switch>
                     <Route path="/:id">
-                        <MakeObjectView
+                        <MakeScanView
                             token={this.state.token}
                             setError={this.setError}
                         />
                     </Route>
                     <Route path="/">
-                        <List
+                        <ListView
                             token={this.state.token}
                             setError={this.setError}
                         />
@@ -80,9 +80,9 @@ class App extends React.Component {
     }
 }
 
-function MakeObjectView(props) {
+function MakeScanView(props) {
     let { id } = useParams();
-    return <ObjectView id={id} token={props.token} setError={props.setError} />;
+    return <ScanView id={id} token={props.token} setError={props.setError} />;
 }
 
 export default App;

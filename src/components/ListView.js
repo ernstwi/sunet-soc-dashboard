@@ -2,14 +2,14 @@ import React from "react";
 
 import Pagination from "@mui/material/Pagination";
 
-import ObjectComponent from "./ObjectComponent";
+import ListItem from "./ListItem";
 import SearchForm from "./SearchForm";
 
-class List extends React.Component {
+class ListView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            objects: [],
+            scans: [],
             filter: {
                 field: null,
                 value: null
@@ -79,7 +79,7 @@ class List extends React.Component {
                         `Unexpected status from soc_collector: ${json.status}`
                     );
                 this.setState({
-                    objects: json.docs
+                    scans: json.docs
                 });
             })
             .catch(e => this.props.setError(e));
@@ -118,17 +118,22 @@ class List extends React.Component {
                         <SearchForm filter={this.filter} />
                     </div>
                 </div>
-                <div id="main">
-                    {this.state.objects.map(data => {
-                        return (
-                            <ObjectComponent
-                                summary={true}
-                                {...data}
-                                key={data._id}
-                            />
-                        );
-                    })}
-                </div>
+                <table id="main">
+                    <tbody>
+                        {this.state.scans
+                            .map(scan =>
+                                scan.result.map(res => (
+                                    <ListItem
+                                        summary={true}
+                                        {...scan}
+                                        {...res}
+                                        key={scan._id + res.cve}
+                                    />
+                                ))
+                            )
+                            .flat()}
+                    </tbody>
+                </table>
                 <div id="pagination">
                     <Pagination
                         page={this.state.page}
@@ -145,4 +150,4 @@ class List extends React.Component {
     }
 }
 
-export default List;
+export default ListView;

@@ -1,8 +1,8 @@
 import React from "react";
 
-import ObjectComponent from "./ObjectComponent";
+import ScanDetail from "./ScanDetail";
 
-class ObjectView extends React.Component {
+class ScanView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,11 +17,14 @@ class ObjectView extends React.Component {
     }
 
     getData() {
-        fetch(`${window.injectedEnv.COLLECTOR_URL}/sc/v0/get/${this.props.id}`, {
-            headers: {
-                Authorization: "Bearer " + this.props.token
+        fetch(
+            `${window.injectedEnv.COLLECTOR_URL}/sc/v0/get/${this.props.id}`,
+            {
+                headers: {
+                    Authorization: "Bearer " + this.props.token
+                }
             }
-        })
+        )
             // TODO: Look at `status` or return code or both?
             .then(resp => {
                 if (resp.status !== 200)
@@ -43,14 +46,10 @@ class ObjectView extends React.Component {
     }
 
     render() {
-        return (
-            <div id="object-view">
-                {this.state.object === null ? null : (
-                    <ObjectComponent {...this.state.object} />
-                )}
-            </div>
+        return this.state.object === null ? null : (
+            <ScanDetail {...this.state.object} />
         );
     }
 }
 
-export default ObjectView;
+export default ScanView;

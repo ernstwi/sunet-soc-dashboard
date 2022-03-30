@@ -1,19 +1,17 @@
 import React from "react";
 
-import Accordion from "@mui/material/Accordion";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import AccordionSummary from "@mui/material/AccordionSummary";
 import Alert from "@mui/material/Alert";
 import Card from "@mui/material/Card";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-class ObjectComponent extends React.Component {
+class ScanDetail extends React.Component {
     render() {
         return (
-            <Card className="object" variant="outlined">
+            <Card className="scan-detail" variant="outlined">
                 <div className="id">
                     <a href={`/${this.props._id}`}>#{this.props._id}</a>
                 </div>
+                <h2>General info</h2>
+
                 <table>
                     <tbody>
                         <tr>
@@ -40,50 +38,48 @@ class ObjectComponent extends React.Component {
                             <td>Abuse mail</td>
                             <td>{this.props.abuse_mail}</td>
                         </tr>
-                        <tr>
-                            <td>Scan finished at</td>
-                            <td>{this.props.timestamp_in_utc}</td>
-                        </tr>
                     </tbody>
                 </table>
+
+                {this.props.user_presentation.description && (
+                    <>
+                        <br />
+                        <Alert severity="info">
+                            {this.props.user_presentation.description}
+                        </Alert>
+                    </>
+                )}
+
+                <h2>Custom info</h2>
                 <Details {...this.props} />
+
+                <h2>Latest scan | {this.props.timestamp_in_utc}</h2>
+                <div id="cves">
+                    {this.props.result
+                        .sort((a, b) => (a.vulnerable ? -1 : 1))
+                        .map(cve => (
+                            <CVE {...cve} />
+                        ))}
+                </div>
             </Card>
         );
     }
 }
 
 function Details(props) {
-    let content = (
+    return (
         <>
-            {props.user_presentation.description && (
-                <Alert severity="info" sx={{ marginTop: "1em" }}>
-                    {props.user_presentation.description}
-                </Alert>
-            )}
             <UserPresentation
                 description={props.user_presentation.description}
                 data={props.user_presentation.data}
             />
         </>
     );
-    if (props.summary) {
-        return (
-            <div>
-                <Accordion elevation={0} disableGutters={true}>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon fontSize="small" />}
-                    ></AccordionSummary>
-                    <AccordionDetails>{content}</AccordionDetails>
-                </Accordion>
-            </div>
-        );
-    }
-    return content;
 }
 
 function UserPresentation(props) {
     return (
-        <div className="user-presentation" style={{ marginTop: "2em" }}>
+        <table className="user-presentation">
             {Object.entries(props.data).map(
                 ([key, { data, display_name, description }]) => (
                     <UserPresentationElement
@@ -94,42 +90,29 @@ function UserPresentation(props) {
                     />
                 )
             )}
-        </div>
+        </table>
     );
 }
 
 function UserPresentationElement(props) {
     return (
+        <tr>
+            <td>{props.display_name}</td>
+            <td>{props.data.toString()}</td>
+            <td style={{ fontStyle: "italic" }}>{props.description}</td>
+        </tr>
+    );
+}
+
+function CVE(props) {
+    return (
         <Card
-            className="user-presentation-element"
+            className={"cve" + (props.vulnerable ? " vulnerable" : "")}
             variant="outlined"
-            sx={{ padding: "1em", marginTop: "1em" }}
         >
-            <b>{props.display_name}</b>: {props.data.toString()}
-            {props.description && (
-                <Alert severity="info" sx={{ marginTop: "0.5em" }}>
-                    {props.description}
-                </Alert>
-            )}
+            {props.cve}
         </Card>
     );
 }
 
-function GenericTable(props) {
-    return (
-        <table>
-            <tbody>
-                {Object.entries(props.data).map(([key, value]) => {
-                    return (
-                        <tr key={key}>
-                            <td>{key}</td>
-                            <td>{value}</td>
-                        </tr>
-                    );
-                })}
-            </tbody>
-        </table>
-    );
-}
-
-export default ObjectComponent;
+export default ScanDetail;
