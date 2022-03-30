@@ -32,16 +32,16 @@
             "vulnerable": true
         }
     ],
-    "description": "A presentation of the observation as a whole (optional)",
+    "description": "The Apache HTTP Server is a free and open-source cross-platform web server software, released under the terms of Apache License 2.0.",
     "custom_data": {
         "subject_cn": {
-            "data": "unknown",
-            "display_name": "Subject Common Name",
-            "description": "A description of this key (optional)"
+            "data": "Apache",
+            "display_name": "Subject Common Name"
         },
         "end_of_general_support": {
             "data": false,
-            "display_name": "End of general support"
+            "display_name": "End of general support",
+            "description": "Is the software currently supported?"
         }
     }
 }
