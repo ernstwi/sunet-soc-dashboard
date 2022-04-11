@@ -10,6 +10,18 @@
     "domain": "sunet.se",
     "timestamp_in_utc": "2021-06-30T10:00 UTC",
     "system_name": "VMware ESXi 6.7.0 build-17700523",
+    "description": "VMware ESXi is an enterprise-class, type-1 hypervisor developed by VMware for deploying and serving virtual computers. As a type-1 hypervisor, ESXi is not a software application that is installed on an operating system; instead, it includes and integrates vital OS components, such as a kernel.",
+    "custom_data": {
+        "subject_cn": {
+            "data": "VMware ESXi",
+            "display_name": "Subject Common Name"
+        },
+        "end_of_general_support": {
+            "data": true,
+            "display_name": "End of general support",
+            "description": "Is the software currently supported?"
+        }
+    },
     "result": {
         "cve_2019_0001": {
             "cve": "CVE-2019-0001",
@@ -34,18 +46,6 @@
             "display_name": "CVE-2015-0005",
             "vulnerable": true,
             "reliability": 4
-        }
-    },
-    "description": "VMware ESXi is an enterprise-class, type-1 hypervisor developed by VMware for deploying and serving virtual computers. As a type-1 hypervisor, ESXi is not a software application that is installed on an operating system; instead, it includes and integrates vital OS components, such as a kernel.",
-    "custom_data": {
-        "subject_cn": {
-            "data": "VMware ESXi",
-            "display_name": "Subject Common Name"
-        },
-        "end_of_general_support": {
-            "data": true,
-            "display_name": "End of general support",
-            "description": "Is the software currently supported?"
         }
     }
 }

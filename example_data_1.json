@@ -10,6 +10,18 @@
     "domain": "sunet.se",
     "timestamp_in_utc": "2021-06-21T14:06 UTC",
     "system_name": "Apache 2.1.3",
+    "description": "The Apache HTTP Server is a free and open-source cross-platform web server software, released under the terms of Apache License 2.0.",
+    "custom_data": {
+        "subject_cn": {
+            "data": "Apache",
+            "display_name": "Subject Common Name"
+        },
+        "end_of_general_support": {
+            "data": false,
+            "display_name": "End of general support",
+            "description": "Is the software currently supported?"
+        }
+    },
     "result": {
         "cve_2015_0049": {
             "display_name": "CVE-2015-0049",
@@ -34,18 +46,6 @@
             "vulnerable": true,
             "reliability": 5,
             "description": "Uses RSA instead of elliptic curve."
-        }
-    },
-    "description": "The Apache HTTP Server is a free and open-source cross-platform web server software, released under the terms of Apache License 2.0.",
-    "custom_data": {
-        "subject_cn": {
-            "data": "Apache",
-            "display_name": "Subject Common Name"
-        },
-        "end_of_general_support": {
-            "data": false,
-            "display_name": "End of general support",
-            "description": "Is the software currently supported?"
         }
     }
 }
