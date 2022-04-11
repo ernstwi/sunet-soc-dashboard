@@ -135,14 +135,14 @@ class ListView extends React.Component {
                                     : -1
                             )
                             .map(scan =>
-                                scan.result
-                                    .filter(res => res.vulnerable)
-                                    .map(res => (
+                                Object.entries(scan.result)
+                                    .filter(([_, res]) => res.vulnerable)
+                                    .map(([id, res]) => (
                                         <ListItem
                                             summary={true}
                                             {...scan}
                                             {...res}
-                                            key={scan._id + res.cve}
+                                            key={scan._id + id}
                                         />
                                     ))
                             )

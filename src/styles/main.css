@@ -74,17 +74,42 @@ a:visited {
     padding-right: 2em;
 }
 
-.scan-detail .cve {
+.scan-detail .resultContainer {
+    display: flex;
+}
+
+.scan-detail .result {
     background-color: #c6ff85;
     border: 3px solid #62b800;
     padding: 0.5em;
     margin-top: 0.5em;
     text-align: center;
+    width: 100%;
 }
 
-.scan-detail .cve.vulnerable {
+.scan-detail .result.vulnerable {
     background-color: #ff8585;
     border: 3px solid #f74343;
+}
+
+.scan-detail .result .MuiSvgIcon-root {
+    vertical-align: middle;
+    margin-left: 0.3em;
+    color: #62b800;
+}
+
+.scan-detail .result.vulnerable .MuiSvgIcon-root {
+    color: #f74343;
+}
+
+.scan-detail .reliability {
+    background-color: lightgrey;
+    border: 3px solid darkgrey;
+    padding: 0.5em;
+    margin-top: 0.5em;
+    text-align: center;
+    width: 4em;
+    margin-left: 0.5em;
 }
 
 /* ListView */
@@ -120,7 +145,7 @@ a:visited {
     border-bottom: 1px solid grey;
 }
 
-.list-item .cve {
+.list-item .result {
     background-color: #c6ff85;
     border: 3px solid #62b800;
     padding: 0.5em;
@@ -128,9 +153,17 @@ a:visited {
     text-align: center;
 }
 
-.list-item .cve.vulnerable {
+.list-item .result.vulnerable {
     background-color: #ff8585;
     border: 3px solid #f74343;
+}
+
+.list-item .reliability {
+    background-color: lightgrey;
+    border: 3px solid darkgrey;
+    padding: 0.5em;
+    margin: 0.5em;
+    text-align: center;
 }
 
 /* Login */

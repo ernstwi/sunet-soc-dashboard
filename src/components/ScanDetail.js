@@ -3,6 +3,9 @@ import React from "react";
 import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
+import Tooltip from "@mui/material/Tooltip";
+
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 class ScanDetail extends React.Component {
     render() {
@@ -67,11 +70,18 @@ class ScanDetail extends React.Component {
                     </div>
                 </h2>
 
-                <div id="cves">
-                    {this.props.result
-                        .sort((a, b) => (a.vulnerable ? -1 : 1))
-                        .map(cve => (
-                            <CVE {...cve} />
+                <div id="results">
+                    {Object.entries(this.props.result)
+                        // Sort by vulnerable, reliability, name
+                        .sort((a, b) =>
+                            a[1].display_name > b[1].display_name ? -1 : 1
+                        )
+                        .sort((a, b) =>
+                            a[1].reliability < b[1].reliability ? -1 : 1
+                        )
+                        .sort((a, b) => (a[1].vulnerable ? -1 : 1))
+                        .map(([id, res]) => (
+                            <Result key={id} {...res} />
                         ))}
                 </div>
             </Card>
@@ -108,14 +118,26 @@ function CustomElement(props) {
     );
 }
 
-function CVE(props) {
+function Result(props) {
     return (
-        <Card
-            className={"cve" + (props.vulnerable ? " vulnerable" : "")}
-            variant="outlined"
-        >
-            {props.cve}
-        </Card>
+        <div className="resultContainer">
+            <Card
+                className={"result" + (props.vulnerable ? " vulnerable" : "")}
+                variant="outlined"
+            >
+                {props.display_name}
+                {props.description && (
+                    <Tooltip title={props.description}>
+                        <InfoOutlinedIcon />
+                    </Tooltip>
+                )}
+            </Card>
+            {props.vulnerable && (
+                <Card className="reliability" variant="outlined">
+                    {props.reliability}
+                </Card>
+            )}
+        </div>
     );
 }
 

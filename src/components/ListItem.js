@@ -24,14 +24,20 @@ class ListItem extends React.Component {
                 </td>
                 <td>{this.props.domain}</td>
                 <td>{this.props.system_name}</td>
-                <td>
+                <td style={{ paddingRight: 0 }}>
                     <Card
                         className={
-                            "cve" + (this.props.vulnerable ? " vulnerable" : "")
+                            "result" +
+                            (this.props.vulnerable ? " vulnerable" : "")
                         }
                         variant="outlined"
                     >
-                        {this.props.cve}
+                        {this.props.display_name}
+                    </Card>
+                </td>
+                <td style={{ paddingLeft: 0 }}>
+                    <Card className="reliability" variant="outlined">
+                        {this.props.reliability}
                     </Card>
                 </td>
                 <td>
