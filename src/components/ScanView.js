@@ -25,7 +25,6 @@ class ScanView extends React.Component {
                 }
             }
         )
-            // TODO: Look at `status` or return code or both?
             .then(resp => {
                 if (resp.status !== 200)
                     throw new Error(
@@ -34,10 +33,6 @@ class ScanView extends React.Component {
                 return resp.json();
             })
             .then(json => {
-                if (json.status != "success")
-                    throw new Error(
-                        `Unexpected status from soc_collector: ${json.status}`
-                    );
                 this.setState({
                     object: {
                         ...json.docs,
