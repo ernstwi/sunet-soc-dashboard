@@ -3,6 +3,7 @@ import React from "react";
 import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
+import CircularProgress from "@mui/material/CircularProgress";
 import Tooltip from "@mui/material/Tooltip";
 
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
@@ -15,10 +16,12 @@ class ScanView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            object: null
+            object: null,
+            rescanInProgress: false
         };
 
         this.getData = this.getData.bind(this);
+        this.rescan = this.rescan.bind(this);
     }
 
     componentDidMount() {
@@ -52,6 +55,19 @@ class ScanView extends React.Component {
                 });
             })
             .catch(e => this.props.setError(e));
+    }
+
+    // TODO: Trigger a real re-scan
+    rescan() {
+        this.setState({ rescanInProgress: true });
+        setTimeout(
+            () =>
+                this.setState(prevState => ({
+                    rescanInProgress: false,
+                    object: { ...prevState.object, timestamp_in_utc: Date.now() }
+                })),
+            2000
+        );
     }
 
     render() {
@@ -118,8 +134,23 @@ class ScanView extends React.Component {
                             "isoUtcDateTime"
                         )}
                     </div>
-                    <div>
-                        <Button variant="contained">Re-scan</Button>
+                    <div
+                        style={{
+                            width: "93px",
+                            height: "37px",
+                            display: "flex",
+                            flexDirection: "vertical",
+                            justifyContent: "center",
+                            alignItems: "center"
+                        }}
+                    >
+                        {this.state.rescanInProgress ? (
+                            <CircularProgress size="37px" />
+                        ) : (
+                            <Button variant="contained" onClick={this.rescan}>
+                                Re-scan
+                            </Button>
+                        )}
                     </div>
                 </h2>
 
