@@ -136,7 +136,11 @@ class ListView extends React.Component {
                             )
                             .map(scan =>
                                 Object.entries(scan.result)
-                                    .filter(([_, res]) => res.vulnerable || res.investigation_needed)
+                                    .filter(
+                                        ([_, res]) =>
+                                            res.vulnerable ||
+                                            res.investigation_needed
+                                    )
                                     .map(([id, res]) => (
                                         <ListItem
                                             summary={true}
