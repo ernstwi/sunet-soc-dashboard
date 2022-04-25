@@ -134,9 +134,9 @@ class ListView extends React.Component {
                                     .map(([id, res]) => (
                                         <ListItem
                                             summary={true}
-                                            {...scan}
-                                            {...res}
                                             key={scan._id + id}
+                                            {...scan}
+                                            result={res}
                                         />
                                     ))
                             )

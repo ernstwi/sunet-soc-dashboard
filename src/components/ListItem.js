@@ -29,18 +29,18 @@ class ListItem extends React.Component {
                     {this.props.ip}:{this.props.port}
                 </td>
                 <td>{this.props.domain}</td>
-                <td>{this.props.system_name}</td>
+                <td>{this.props.display_name}</td>
                 <td style={{ paddingRight: 0 }}>
                     <Card
-                        className={resultClassName(this.props)}
+                        className={resultClassName(this.props.result)}
                         variant="outlined"
                     >
-                        {this.props.display_name}
+                        {this.props.result.display_name}
                     </Card>
                 </td>
                 <td style={{ paddingLeft: 0 }}>
                     <Card className="reliability" variant="outlined">
-                        {this.props.reliability}
+                        {this.props.result.reliability}
                     </Card>
                 </td>
                 <td>
