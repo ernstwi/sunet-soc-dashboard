@@ -7,6 +7,8 @@ import Tooltip from "@mui/material/Tooltip";
 
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
+import { resultClassName } from "../util";
+
 class ScanDetail extends React.Component {
     render() {
         return (
@@ -126,18 +128,7 @@ function CustomElement(props) {
 function Result(props) {
     return (
         <div className="resultContainer">
-            <Card
-                className={
-                    "result" +
-                    (() => {
-                        if (props.vulnerable) return " vulnerable";
-                        else if (props.investigation_needed)
-                            return " investigation_needed";
-                        else return "";
-                    })()
-                }
-                variant="outlined"
-            >
+            <Card className={resultClassName(props)} variant="outlined">
                 {props.display_name}
                 {props.description && (
                     <Tooltip title={props.description}>

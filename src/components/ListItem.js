@@ -3,6 +3,8 @@ import React from "react";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 
+import { resultClassName } from "../util";
+
 class ListItem extends React.Component {
     render() {
         return (
@@ -26,15 +28,7 @@ class ListItem extends React.Component {
                 <td>{this.props.system_name}</td>
                 <td style={{ paddingRight: 0 }}>
                     <Card
-                        className={
-                            "result" +
-                            (() => {
-                                if (this.props.vulnerable) return " vulnerable";
-                                else if (this.props.investigation_needed)
-                                    return " investigation_needed";
-                                else return "";
-                            })()
-                        }
+                        className={resultClassName(this.props)}
                         variant="outlined"
                     >
                         {this.props.display_name}
