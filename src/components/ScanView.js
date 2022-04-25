@@ -39,7 +39,12 @@ class ScanView extends React.Component {
                         `Unexpected status from soc_collector: ${json.status}`
                     );
                 this.setState({
-                    object: json.docs
+                    object: {
+                        ...json.docs,
+                        timestamp_in_utc: new Date(
+                            json.docs.timestamp_in_utc.replace(/ UTC$/, "Z")
+                        )
+                    }
                 });
             })
             .catch(e => this.props.setError(e));

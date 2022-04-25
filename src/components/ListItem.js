@@ -3,6 +3,8 @@ import React from "react";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 
+import dateFormat from "dateformat";
+
 import { resultClassName } from "../util";
 
 class ListItem extends React.Component {
@@ -20,7 +22,9 @@ class ListItem extends React.Component {
                 }}
                 onClick={() => (window.location = `/${this.props._id}`)}
             >
-                <td>{this.props.timestamp_in_utc}</td>
+                <td>
+                    {dateFormat(this.props.timestamp_in_utc, "isoUtcDateTime")}
+                </td>
                 <td>
                     {this.props.ip}:{this.props.port}
                 </td>

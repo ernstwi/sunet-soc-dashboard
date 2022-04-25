@@ -79,7 +79,12 @@ class ListView extends React.Component {
                         `Unexpected status from soc_collector: ${json.status}`
                     );
                 this.setState({
-                    scans: json.docs
+                    scans: json.docs.map(d => ({
+                        ...d,
+                        timestamp_in_utc: new Date(
+                            d.timestamp_in_utc.replace(/ UTC$/, "Z")
+                        )
+                    }))
                 });
             })
             .catch(e => this.props.setError(e));
@@ -122,17 +127,7 @@ class ListView extends React.Component {
                     <tbody>
                         {this.state.scans
                             .sort((a, b) =>
-                                Date.parse(
-                                    a.timestamp_in_utc.replace(" UTC", "") >
-                                        Date.parse(
-                                            b.timestamp_in_utc.replace(
-                                                " UTC",
-                                                ""
-                                            )
-                                        )
-                                )
-                                    ? 1
-                                    : -1
+                                a.timestamp_in_utc > b.timestamp_in_utc ? 1 : -1
                             )
                             .map(scan =>
                                 Object.entries(scan.result)

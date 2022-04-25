@@ -7,6 +7,8 @@ import Tooltip from "@mui/material/Tooltip";
 
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
+import dateFormat from "dateformat";
+
 import { resultClassName } from "../util";
 
 class ScanDetail extends React.Component {
@@ -65,7 +67,10 @@ class ScanDetail extends React.Component {
                 >
                     <div>
                         Latest scan: &nbsp;&nbsp;&nbsp;
-                        {this.props.timestamp_in_utc}
+                        {dateFormat(
+                            this.props.timestamp_in_utc,
+                            "isoUtcDateTime"
+                        )}
                     </div>
                     <div>
                         <Button variant="contained">Re-scan</Button>
