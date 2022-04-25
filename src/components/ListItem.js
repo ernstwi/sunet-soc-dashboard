@@ -28,7 +28,12 @@ class ListItem extends React.Component {
                     <Card
                         className={
                             "result" +
-                            (this.props.vulnerable ? " vulnerable" : "")
+                            (() => {
+                                if (this.props.vulnerable) return " vulnerable";
+                                else if (this.props.investigation_needed)
+                                    return " investigation_needed";
+                                else return "";
+                            })()
                         }
                         variant="outlined"
                     >

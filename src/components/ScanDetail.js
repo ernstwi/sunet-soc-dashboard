@@ -72,12 +72,17 @@ class ScanDetail extends React.Component {
 
                 <div id="results">
                     {Object.entries(this.props.result)
-                        // Sort by vulnerable, reliability, name
+                        // Sort by vulnerable, investigation_needed, reliability, name
                         .sort((a, b) =>
                             a[1].display_name > b[1].display_name ? -1 : 1
                         )
                         .sort((a, b) =>
                             a[1].reliability < b[1].reliability ? -1 : 1
+                        )
+                        .sort((a, b) =>
+                            a[1].vulnerable || a[1].investigation_needed
+                                ? -1
+                                : 1
                         )
                         .sort((a, b) => (a[1].vulnerable ? -1 : 1))
                         .map(([id, res]) => (
@@ -122,7 +127,15 @@ function Result(props) {
     return (
         <div className="resultContainer">
             <Card
-                className={"result" + (props.vulnerable ? " vulnerable" : "")}
+                className={
+                    "result" +
+                    (() => {
+                        if (props.vulnerable) return " vulnerable";
+                        else if (props.investigation_needed)
+                            return " investigation_needed";
+                        else return "";
+                    })()
+                }
                 variant="outlined"
             >
                 {props.display_name}
@@ -132,7 +145,7 @@ function Result(props) {
                     </Tooltip>
                 )}
             </Card>
-            {props.vulnerable && (
+            {(props.vulnerable || props.investigation_needed) && (
                 <Card className="reliability" variant="outlined">
                     {props.reliability}
                 </Card>

@@ -92,6 +92,11 @@ a:visited {
     border: 3px solid #f74343;
 }
 
+.scan-detail .result.investigation_needed {
+    background-color: #ffd078;
+    border: 3px solid #f5b642;
+}
+
 .scan-detail .result .MuiSvgIcon-root {
     vertical-align: middle;
     margin-left: 0.3em;
@@ -100,6 +105,10 @@ a:visited {
 
 .scan-detail .result.vulnerable .MuiSvgIcon-root {
     color: #f74343;
+}
+
+.scan-detail .result.investigation_needed .MuiSvgIcon-root {
+    color: #ff8400;
 }
 
 .scan-detail .reliability {
@@ -156,6 +165,11 @@ a:visited {
 .list-item .result.vulnerable {
     background-color: #ff8585;
     border: 3px solid #f74343;
+}
+
+.list-item .result.investigation_needed {
+    background-color: #ffd078;
+    border: 3px solid #f5b642;
 }
 
 .list-item .reliability {
