@@ -113,10 +113,7 @@ class ListView extends React.Component {
         return (
             <div id="list-container">
                 <div id="controls">
-                    <div id="action"></div>
-                    <div id="search">
-                        <SearchForm filter={this.filter} />
-                    </div>
+                    <SearchForm filter={this.filter} />
                 </div>
                 <table id="main">
                     <tbody>

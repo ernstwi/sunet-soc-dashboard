@@ -40,7 +40,7 @@ class SearchForm extends React.Component {
 
     render() {
         return (
-            <>
+            <div id="search">
                 <TextField
                     fullWidth
                     size="small"
@@ -94,7 +94,7 @@ class SearchForm extends React.Component {
                 >
                     Search
                 </Button>
-            </>
+            </div>
         );
     }
 }
