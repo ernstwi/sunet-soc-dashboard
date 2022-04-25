@@ -16,7 +16,7 @@ class ScanView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            object: null,
+            loaded: false,
             rescanInProgress: false
         };
 
@@ -46,12 +46,11 @@ class ScanView extends React.Component {
             })
             .then(json => {
                 this.setState({
-                    object: {
-                        ...json.docs,
-                        timestamp_in_utc: new Date(
-                            json.docs.timestamp_in_utc.replace(/ UTC$/, "Z")
-                        )
-                    }
+                    loaded: true,
+                    ...json.docs,
+                    timestamp_in_utc: new Date(
+                        json.docs.timestamp_in_utc.replace(/ UTC$/, "Z")
+                    )
                 });
             })
             .catch(e => this.props.setError(e));
@@ -64,19 +63,17 @@ class ScanView extends React.Component {
             () =>
                 this.setState(prevState => ({
                     rescanInProgress: false,
-                    object: { ...prevState.object, timestamp_in_utc: Date.now() }
+                    timestamp_in_utc: Date.now()
                 })),
             2000
         );
     }
 
     render() {
-        return this.state.object === null ? null : (
+        return this.state.loaded && (
             <Card className="scan-detail" variant="outlined">
                 <div className="id">
-                    <a href={`/${this.state.object._id}`}>
-                        #{this.state.object._id}
-                    </a>
+                    <a href={`/${this.state._id}`}>#{this.state._id}</a>
                 </div>
                 <h2>General info</h2>
 
@@ -84,42 +81,40 @@ class ScanView extends React.Component {
                     <tbody>
                         <tr>
                             <td>Domain</td>
-                            <td>{this.state.object.domain}</td>
+                            <td>{this.state.domain}</td>
                         </tr>
                         <tr>
                             <td>Endpoint</td>
-                            <td>{`${this.state.object.ip}:${this.props.port}`}</td>
+                            <td>{`${this.state.ip}:${this.props.port}`}</td>
                         </tr>
                         <tr>
                             <td>Hostname</td>
-                            <td>{this.state.object.ptr}</td>
+                            <td>{this.state.ptr}</td>
                         </tr>
                         <tr>
                             <td>Owner</td>
-                            <td>{this.state.object.whois_description}</td>
+                            <td>{this.state.whois_description}</td>
                         </tr>
                         <tr>
                             <td>ASN</td>
-                            <td>{`${this.state.object.asn} (${this.props.asn_country_code})`}</td>
+                            <td>{`${this.state.asn} (${this.props.asn_country_code})`}</td>
                         </tr>
                         <tr>
                             <td>Abuse mail</td>
-                            <td>{this.state.object.abuse_mail}</td>
+                            <td>{this.state.abuse_mail}</td>
                         </tr>
                     </tbody>
                 </table>
 
-                {this.state.object.description && (
+                {this.state.description && (
                     <>
                         <br />
-                        <Alert severity="info">
-                            {this.state.object.description}
-                        </Alert>
+                        <Alert severity="info">{this.state.description}</Alert>
                     </>
                 )}
 
                 <h2>Custom info</h2>
-                <Custom {...this.state.object.custom_data} />
+                <Custom {...this.state.custom_data} />
 
                 <h2
                     style={{
@@ -130,7 +125,7 @@ class ScanView extends React.Component {
                     <div>
                         Latest scan: &nbsp;&nbsp;&nbsp;
                         {dateFormat(
-                            this.state.object.timestamp_in_utc,
+                            this.state.timestamp_in_utc,
                             "isoUtcDateTime"
                         )}
                     </div>
@@ -155,7 +150,7 @@ class ScanView extends React.Component {
                 </h2>
 
                 <div id="results">
-                    {Object.entries(this.state.object.result)
+                    {Object.entries(this.state.result)
                         // Sort by vulnerable, investigation_needed, reliability, name
                         .sort((a, b) =>
                             a[1].display_name > b[1].display_name ? -1 : 1
