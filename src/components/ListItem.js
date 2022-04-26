@@ -22,9 +22,7 @@ class ListItem extends React.Component {
                 }}
                 onClick={() => (window.location = `/${this.props._id}`)}
             >
-                <td>
-                    {dateFormat(this.props.timestamp_in_utc, "isoUtcDateTime")}
-                </td>
+                <td>{dateFormat(this.props.timestamp, "isoUtcDateTime")}</td>
                 <td>
                     {this.props.ip}:{this.props.port}
                 </td>

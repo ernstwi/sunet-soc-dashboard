@@ -48,9 +48,7 @@ class ScanView extends React.Component {
                 this.setState({
                     loaded: true,
                     ...json.docs,
-                    timestamp_in_utc: new Date(
-                        json.docs.timestamp_in_utc.replace(/ UTC$/, "Z")
-                    )
+                    timestamp: new Date(json.docs.timestamp)
                 });
             })
             .catch(e => this.props.setError(e));
@@ -63,7 +61,7 @@ class ScanView extends React.Component {
             () =>
                 this.setState(prevState => ({
                     rescanInProgress: false,
-                    timestamp_in_utc: Date.now()
+                    timestamp: Date.now()
                 })),
             2000
         );
@@ -127,10 +125,7 @@ class ScanView extends React.Component {
                     >
                         <div>
                             Latest scan: &nbsp;&nbsp;&nbsp;
-                            {dateFormat(
-                                this.state.timestamp_in_utc,
-                                "isoUtcDateTime"
-                            )}
+                            {dateFormat(this.state.timestamp, "isoUtcDateTime")}
                         </div>
                         <div
                             style={{

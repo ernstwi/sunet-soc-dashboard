@@ -76,9 +76,7 @@ class ListView extends React.Component {
                 this.setState({
                     scans: json.docs.map(d => ({
                         ...d,
-                        timestamp_in_utc: new Date(
-                            d.timestamp_in_utc.replace(/ UTC$/, "Z")
-                        )
+                        timestamp: new Date(d.timestamp)
                     }))
                 });
             })
@@ -119,7 +117,7 @@ class ListView extends React.Component {
                     <tbody>
                         {this.state.scans
                             .sort((a, b) =>
-                                a.timestamp_in_utc > b.timestamp_in_utc ? 1 : -1
+                                a.timestamp > b.timestamp ? 1 : -1
                             )
                             .map(scan =>
                                 Object.entries(scan.result)
