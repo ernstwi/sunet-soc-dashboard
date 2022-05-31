@@ -84,7 +84,7 @@ class ScanView extends React.Component {
                             </tr>
                             <tr>
                                 <td>Endpoint</td>
-                                <td>{`${this.state.ip}:${this.props.port}`}</td>
+                                <td>{`${this.state.ip}:${this.state.port}`}</td>
                             </tr>
                             <tr>
                                 <td>Hostname</td>
@@ -96,7 +96,7 @@ class ScanView extends React.Component {
                             </tr>
                             <tr>
                                 <td>ASN</td>
-                                <td>{`${this.state.asn} (${this.props.asn_country_code})`}</td>
+                                <td>{`${this.state.asn} (${this.state.asn_country_code})`}</td>
                             </tr>
                             <tr>
                                 <td>Abuse mail</td>
