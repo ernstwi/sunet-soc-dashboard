@@ -19,7 +19,7 @@
         "@mui/icons-material": "^5.0.4",
         "@mui/material": "^5.0.4",
         "dateformat": "^5.0.3",
-        "parcel": "^2.0.0-rc.0",
+        "parcel": "^2.6.0",
         "parcel-resolver-ignore": "2.0.0",
         "prettier": "^2.3.2",
         "prop-types": "^15.7.2",
