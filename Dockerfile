@@ -6,10 +6,6 @@ COPY package*.json ./
 
 RUN npm install
 
-ARG COLLECTOR_URL
-ARG JWT_URL
-ARG PER_PAGE
-
 COPY src src
 COPY .parcelrc ./
 
