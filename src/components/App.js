@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     BrowserRouter as Router,
     Switch,
@@ -15,69 +15,49 @@ import ScanView from "./ScanView";
 
 import "../styles/main.css";
 
-class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            token: localStorage.getItem("token"),
-            error: null
-        };
+function App(props) {
+    let [token, setToken] = useState(localStorage.getItem("token"));
+    let [error, setError] = useState(null);
 
-        this.clearError = this.clearError.bind(this);
-        this.clearToken = this.clearToken.bind(this);
-        this.setError = this.setError.bind(this);
-        this.setToken = this.setToken.bind(this);
-    }
-
-    setToken(token) {
+    function setTokenWrapper(token) {
         localStorage.setItem("token", token);
-        this.setState({ token: token });
+        setToken(token);
     }
 
-    clearToken() {
+    function clearToken() {
         localStorage.removeItem("token");
-        this.setState({ token: null });
+        setToken(null);
     }
 
-    setError(e) {
-        this.setState({ error: e.message });
+    function clearError() {
+        setError(null);
     }
 
-    clearError() {
-        this.setState({ error: null });
-    }
-
-    render() {
-        if (this.state.error !== null)
-            return (
-                <Error
-                    error={this.state.error}
-                    clearError={this.clearError}
-                    clearToken={this.clearToken}
-                />
-            );
-        if (this.state.token === null)
-            return <Login setToken={this.setToken} setError={this.setError} />;
+    if (error !== null)
         return (
-            <Router>
-                <Header clearToken={this.clearToken} />
-                <Switch>
-                    <Route path="/:id">
-                        <MakeScanView
-                            token={this.state.token}
-                            setError={this.setError}
-                        />
-                    </Route>
-                    <Route path="/">
-                        <ListView
-                            token={this.state.token}
-                            setError={this.setError}
-                        />
-                    </Route>
-                </Switch>
-            </Router>
+            <Error
+                error={error}
+                clearError={clearError}
+                clearToken={clearToken}
+            />
         );
-    }
+
+    if (token === null)
+        return <Login setToken={setTokenWrapper} setError={setError} />;
+
+    return (
+        <Router>
+            <Header clearToken={clearToken} />
+            <Switch>
+                <Route path="/:id">
+                    <MakeScanView token={token} setError={setError} />
+                </Route>
+                <Route path="/">
+                    <ListView token={token} setError={setError} />
+                </Route>
+            </Switch>
+        </Router>
+    );
 }
 
 function MakeScanView(props) {
