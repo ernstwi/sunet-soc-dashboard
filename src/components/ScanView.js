@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
@@ -12,31 +12,19 @@ import dateFormat from "dateformat";
 
 import { resultClassName } from "../util";
 
-class ScanView extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            loaded: false,
-            rescanInProgress: false
-        };
+function ScanView(props) {
+    let [rescanInProgress, setRescanInProgress] = useState(false);
+    let [data, setData] = useState(null);
+    let [timestamp, setTimestamp] = useState(null);
 
-        this.getData = this.getData.bind(this);
-        this.rescan = this.rescan.bind(this);
-    }
+    useEffect(getData, []);
 
-    componentDidMount() {
-        this.getData();
-    }
-
-    getData() {
-        fetch(
-            `${window.injectedEnv.COLLECTOR_URL}/sc/v0/get/${this.props.id}`,
-            {
-                headers: {
-                    Authorization: "Bearer " + this.props.token
-                }
+    function getData() {
+        fetch(`${window.injectedEnv.COLLECTOR_URL}/sc/v0/get/${props.id}`, {
+            headers: {
+                Authorization: "Bearer " + props.token
             }
-        )
+        })
             .then(resp => {
                 if (resp.status !== 200)
                     throw new Error(
@@ -45,132 +33,119 @@ class ScanView extends React.Component {
                 return resp.json();
             })
             .then(json => {
-                this.setState({
-                    loaded: true,
-                    ...json.docs,
-                    timestamp: new Date(json.docs.timestamp)
-                });
+                setData(json.docs);
+                setTimestamp(new Date(json.docs.timestamp));
             })
-            .catch(e => this.props.setError(e));
+            .catch(e => props.setError(e));
     }
 
     // TODO: Trigger a real re-scan
-    rescan() {
+    function rescan() {
         this.setState({ rescanInProgress: true });
-        setTimeout(
-            () =>
-                this.setState(prevState => ({
-                    rescanInProgress: false,
-                    timestamp: Date.now()
-                })),
-            2000
-        );
+        setTimeout(() => {
+            setRescanInProgress(true);
+            setTimestamp(Date.now());
+        }, 2000);
     }
 
-    render() {
+    if (data === null) return null;
+    else {
         return (
-            this.state.loaded && (
-                <Card className="scan-detail" variant="outlined">
-                    <div className="id">
-                        <a href={`/${this.state._id}`}>#{this.state._id}</a>
+            <Card className="scan-detail" variant="outlined">
+                <div className="id">
+                    <a href={`/${data._id}`}>#{data._id}</a>
+                </div>
+                <h2>General info</h2>
+
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Domain</td>
+                            <td>{data.domain}</td>
+                        </tr>
+                        <tr>
+                            <td>Endpoint</td>
+                            <td>{`${data.ip}:${data.port}`}</td>
+                        </tr>
+                        <tr>
+                            <td>Hostname</td>
+                            <td>{data.ptr}</td>
+                        </tr>
+                        <tr>
+                            <td>Owner</td>
+                            <td>{data.whois_description}</td>
+                        </tr>
+                        <tr>
+                            <td>ASN</td>
+                            <td>{`${data.asn} (${data.asn_country_code})`}</td>
+                        </tr>
+                        <tr>
+                            <td>Abuse mail</td>
+                            <td>{data.abuse_mail}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                {data.description && (
+                    <>
+                        <br />
+                        <Alert severity="info">{data.description}</Alert>
+                    </>
+                )}
+
+                <h2>Custom info</h2>
+                <Custom {...data.custom_data} />
+
+                <h2
+                    style={{
+                        display: "flex",
+                        justifyContent: "space-between"
+                    }}
+                >
+                    <div>
+                        Latest scan: &nbsp;&nbsp;&nbsp;
+                        {dateFormat(data.timestamp, "isoUtcDateTime")}
                     </div>
-                    <h2>General info</h2>
-
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>Domain</td>
-                                <td>{this.state.domain}</td>
-                            </tr>
-                            <tr>
-                                <td>Endpoint</td>
-                                <td>{`${this.state.ip}:${this.state.port}`}</td>
-                            </tr>
-                            <tr>
-                                <td>Hostname</td>
-                                <td>{this.state.ptr}</td>
-                            </tr>
-                            <tr>
-                                <td>Owner</td>
-                                <td>{this.state.whois_description}</td>
-                            </tr>
-                            <tr>
-                                <td>ASN</td>
-                                <td>{`${this.state.asn} (${this.state.asn_country_code})`}</td>
-                            </tr>
-                            <tr>
-                                <td>Abuse mail</td>
-                                <td>{this.state.abuse_mail}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    {this.state.description && (
-                        <>
-                            <br />
-                            <Alert severity="info">
-                                {this.state.description}
-                            </Alert>
-                        </>
-                    )}
-
-                    <h2>Custom info</h2>
-                    <Custom {...this.state.custom_data} />
-
-                    <h2
+                    <div
                         style={{
+                            width: "93px",
+                            height: "37px",
                             display: "flex",
-                            justifyContent: "space-between"
+                            flexDirection: "vertical",
+                            justifyContent: "center",
+                            alignItems: "center"
                         }}
                     >
-                        <div>
-                            Latest scan: &nbsp;&nbsp;&nbsp;
-                            {dateFormat(this.state.timestamp, "isoUtcDateTime")}
-                        </div>
-                        <div
-                            style={{
-                                width: "93px",
-                                height: "37px",
-                                display: "flex",
-                                flexDirection: "vertical",
-                                justifyContent: "center",
-                                alignItems: "center"
-                            }}
-                        >
-                            {this.state.rescanInProgress ? (
-                                <CircularProgress size="37px" />
-                            ) : (
-                                <Button
-                                    variant="contained"
-                                    onClick={this.rescan}
-                                >
-                                    Re-scan
-                                </Button>
-                            )}
-                        </div>
-                    </h2>
-
-                    <div id="results">
-                        {Object.entries(this.state.result)
-                            // Sort by vulnerable, investigation_needed, reliability, name
-                            .sort((a, b) =>
-                                a[1].display_name > b[1].display_name ? -1 : 1
-                            )
-                            .sort((a, b) =>
-                                a[1].reliability < b[1].reliability ? -1 : 1
-                            )
-                            .sort((a, b) =>
-                                a[1].vulnerable || a[1].investigation_needed
-                                    ? -1
-                                    : 1
-                            )
-                            .sort((a, b) => (a[1].vulnerable ? -1 : 1))
-                            .map(([id, res]) => (
-                                <Result key={id} {...res} />
-                            ))}
+                        {rescanInProgress ? (
+                            <CircularProgress size="37px" />
+                        ) : (
+                            <Button variant="contained" onClick={rescan}>
+                                Re-scan
+                            </Button>
+                        )}
                     </div>
-                </Card>
-            )
+                </h2>
+
+                <div id="results">
+                    {Object.entries(data.result)
+                        // Sort by vulnerable, investigation_needed, reliability, name
+                        .sort((a, b) =>
+                            a[1].display_name > b[1].display_name ? -1 : 1
+                        )
+                        .sort((a, b) =>
+                            a[1].reliability < b[1].reliability ? -1 : 1
+                        )
+                        .sort((a, b) =>
+                            a[1].vulnerable || a[1].investigation_needed
+                                ? -1
+                                : 1
+                        )
+                        .sort((a, b) => (a[1].vulnerable ? -1 : 1))
+                        .map(([id, res]) => (
+                            <Result key={id} {...res} />
+                        ))}
+                </div>
+            </Card>
         );
     }
 }
