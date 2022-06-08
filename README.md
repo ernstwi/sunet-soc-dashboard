@@ -48,3 +48,8 @@ This also requires us to tell Parcel to leave references to `inject.js` alone, s
 
 - soc_collector exists as a submodule to this repo, with the idea that this is the latest version of soc_collector which is compatible and tested with the main branch of soc_dashboard.
 - In `package.json`, `dependenciesComments` is just a random key not used by npm which we use since there are no comments in JSON.
+
+## Todo
+
+- Filters `domain` and `asn_country_code` do not work with backend
+- Filters are exact match, I think we want substring or prefix
