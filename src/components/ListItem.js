@@ -19,7 +19,10 @@ function ListItem(props) {
                 paddingTop: "1em",
                 paddingBottom: "1em"
             }}
-            onClick={() => (window.location = `/${props._id}`)}
+            onClick={() => {
+                if (window.getSelection().type !== "Range")
+                    window.location = `/${props._id}`;
+            }}
         >
             <td>{dateFormat(props.timestamp, "isoUtcDateTime")}</td>
             <td>
