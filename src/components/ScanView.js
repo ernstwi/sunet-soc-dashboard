@@ -104,7 +104,7 @@ function ScanView(props) {
                 >
                     <div>
                         Latest scan: &nbsp;&nbsp;&nbsp;
-                        {dateFormat(data.timestamp, "isoUtcDateTime")}
+                        {dateFormat(timestamp, "isoUtcDateTime")}
                     </div>
                     <div
                         style={{
