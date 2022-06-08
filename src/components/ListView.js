@@ -80,7 +80,7 @@ class ListView extends React.Component {
                     }))
                 });
             })
-            .catch(e => this.props.setError(e));
+            .catch(e => this.props.setError(e.toString()));
     }
 
     //

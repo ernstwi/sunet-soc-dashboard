@@ -36,7 +36,7 @@ function ScanView(props) {
                 setData(json.docs);
                 setTimestamp(new Date(json.docs.timestamp));
             })
-            .catch(e => props.setError(e));
+            .catch(e => props.setError(e.toString()));
     }
 
     // TODO: Trigger a real re-scan
