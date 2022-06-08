@@ -44,6 +44,22 @@ We need this workaround since we are building static code which runs in a browse
 
 This also requires us to tell Parcel to leave references to `inject.js` alone, since we will compile this file outside of Parcel. We do this using `parcel-resolver-ignore` which is enabled in `.parcelrc` and configured in `package.json`.
 
+## Component structure
+
+- App
+    - Error
+    - Login
+    - Header
+    - ScanView
+        - Custom*
+            - CustomElement*
+        - Result*
+    - ListView
+        - SearchForm
+        - ListItem
+
+*In file `ScanView.js`
+
 ## Misc notes
 
 - soc_collector exists as a submodule to this repo, with the idea that this is the latest version of soc_collector which is compatible and tested with the main branch of soc_dashboard.
