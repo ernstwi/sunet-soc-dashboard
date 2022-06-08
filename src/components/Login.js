@@ -37,10 +37,6 @@ function Login(props) {
             });
     }
 
-    function logout() {
-        props.clearToken();
-    }
-
     return (
         <div id="login-container">
             <Paper id="login" variant="outlined" color="green">
@@ -72,7 +68,7 @@ function Login(props) {
                 <Button
                     variant="contained"
                     className="submit"
-                    onClick={e => {
+                    onClick={_ => {
                         login(email, password);
                     }}
                     sx={{

@@ -98,7 +98,7 @@ function ListView(props) {
                 <Pagination
                     page={page}
                     count={totalPages}
-                    onChange={(e, v) => setPage(v)}
+                    onChange={(_, v) => setPage(v)}
                     variant="outlined"
                     shape="rounded"
                     showFirstButton
