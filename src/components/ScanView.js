@@ -41,9 +41,9 @@ function ScanView(props) {
 
     // TODO: Trigger a real re-scan
     function rescan() {
-        this.setState({ rescanInProgress: true });
+        setRescanInProgress(true);
         setTimeout(() => {
-            setRescanInProgress(true);
+            setRescanInProgress(false);
             setTimestamp(Date.now());
         }, 2000);
     }
