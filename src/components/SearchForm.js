@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 import Button from "@mui/material/Button";
@@ -12,6 +12,8 @@ function SearchForm(props) {
     // NOTE: This state is for UI only, ListView's "filter" is used for requests.
     let [searchField, setSearchField] = useState("port");
     let [searchValue, setSearchValue] = useState("");
+
+    useEffect(clearSearch, [searchField]);
 
     function clearSearch(_) {
         setSearchValue("");
