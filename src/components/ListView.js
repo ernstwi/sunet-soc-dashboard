@@ -1,64 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import Pagination from "@mui/material/Pagination";
 
 import ListItem from "./ListItem";
 import SearchForm from "./SearchForm";
 
-class ListView extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            scans: [],
-            filter: {
-                field: null,
-                value: null
-            },
-            page: 1,
-            totalPages: 1
-        };
+function ListView(props) {
+    let [scans, setScans] = useState([]);
+    let [filter, setFilter] = useState({ field: null, value: null });
+    let [page, setPage] = useState(1);
+    let [totalPages, setTotalPages] = useState(1);
 
-        this.filter = this.filter.bind(this);
-        this.filterString = this.filterString.bind(this);
-        this.getData = this.getData.bind(this);
-        this.queryString = this.queryString.bind(this);
-        this.setPage = this.setPage.bind(this);
-    }
+    useEffect(getData, [filter]);
 
-    componentDidMount() {
-        this.getData();
-    }
+    useEffect(() => {
+        getData();
+        window.scrollTo(0, 0);
+    }, [page]);
 
-    //
-    // Helpers
-    //
+    function getData() {
+        function filterString() {
+            return filter.field == null || filter.value == null
+                ? null
+                : filter.field + "=" + filter.value;
+        }
 
-    filterString() {
-        return this.state.filter.field == null ||
-            this.state.filter.value == null
-            ? null
-            : this.state.filter.field + "=" + this.state.filter.value;
-    }
+        function queryString() {
+            return [
+                `limit=${window.injectedEnv.PER_PAGE}`,
+                `skip=${(page - 1) * window.injectedEnv.PER_PAGE}`,
+                filterString()
+            ]
+                .filter(x => x !== null)
+                .join("&");
+        }
 
-    queryString() {
-        return [
-            `limit=${window.injectedEnv.PER_PAGE}`,
-            `skip=${(this.state.page - 1) * window.injectedEnv.PER_PAGE}`,
-            this.filterString()
-        ]
-            .filter(x => x !== null)
-            .join("&");
-    }
-
-    // Fetch data from external source, update state
-    getData() {
         fetch(
-            window.injectedEnv.COLLECTOR_URL +
-                "/sc/v0/get?" +
-                this.queryString(),
+            window.injectedEnv.COLLECTOR_URL + "/sc/v0/get?" + queryString(),
             {
                 headers: {
-                    Authorization: "Bearer " + this.props.token
+                    Authorization: "Bearer " + props.token
                 }
             }
         )
@@ -67,90 +48,65 @@ class ListView extends React.Component {
                     throw new Error(
                         `Unexpected HTTP response code from soc_collector: ${resp.status} ${resp.statusText}`
                     );
-                this.setState({
-                    totalPages: parseInt(resp.headers.get("X-Total-Count"))
-                });
+                setTotalPages(parseInt(resp.headers.get("X-Total-Count")));
                 return resp.json();
             })
             .then(json => {
-                this.setState({
-                    scans: json.docs.map(d => ({
+                setScans(
+                    json.docs.map(d => ({
                         ...d,
                         timestamp: new Date(d.timestamp)
                     }))
-                });
+                );
             })
-            .catch(e => this.props.setError(e.toString()));
+            .catch(e => props.setError(e.toString()));
     }
 
-    //
-    // Event handlers
-    //
-
-    filter(field, value) {
-        this.setState(
-            {
-                filter: {
-                    field: field,
-                    value: value
-                },
-                page: 1
-            },
-            this.getData
-        );
-    }
-
-    setPage(event, value) {
-        this.setState({ page: value }, () => {
-            this.getData();
-            window.scrollTo(0, 0);
-        });
-    }
-
-    render() {
-        return (
-            <div id="list-container">
-                <div id="controls">
-                    <SearchForm filter={this.filter} />
-                </div>
-                <table id="main">
-                    <tbody>
-                        {this.state.scans
-                            .sort((a, b) =>
-                                a.timestamp > b.timestamp ? 1 : -1
-                            )
-                            .map(scan =>
-                                Object.entries(scan.result)
-                                    .filter(
-                                        ([_, res]) =>
-                                            res.vulnerable ||
-                                            res.investigation_needed
-                                    )
-                                    .map(([id, res]) => (
-                                        <ListItem
-                                            key={scan._id + id}
-                                            {...scan}
-                                            result={res}
-                                        />
-                                    ))
-                            )
-                            .flat()}
-                    </tbody>
-                </table>
-                <div id="pagination">
-                    <Pagination
-                        page={this.state.page}
-                        count={this.state.totalPages}
-                        onChange={this.setPage}
-                        variant="outlined"
-                        shape="rounded"
-                        showFirstButton
-                        showLastButton
-                    />
-                </div>
+    return (
+        <div id="list-container">
+            <div id="controls">
+                <SearchForm
+                    filter={(field, value) => {
+                        setFilter({ field: field, value: value });
+                        setPage(1);
+                    }}
+                />
             </div>
-        );
-    }
+            <table id="main">
+                <tbody>
+                    {scans
+                        .sort((a, b) => (a.timestamp > b.timestamp ? 1 : -1))
+                        .map(scan =>
+                            Object.entries(scan.result)
+                                .filter(
+                                    ([_, res]) =>
+                                        res.vulnerable ||
+                                        res.investigation_needed
+                                )
+                                .map(([id, res]) => (
+                                    <ListItem
+                                        key={scan._id + id}
+                                        {...scan}
+                                        result={res}
+                                    />
+                                ))
+                        )
+                        .flat()}
+                </tbody>
+            </table>
+            <div id="pagination">
+                <Pagination
+                    page={page}
+                    count={totalPages}
+                    onChange={(e, v) => setPage(v)}
+                    variant="outlined"
+                    shape="rounded"
+                    showFirstButton
+                    showLastButton
+                />
+            </div>
+        </div>
+    );
 }
 
 export default ListView;
