@@ -22,9 +22,12 @@ An example configuration is supplied in `.env`, which corresponds to the default
 
 | | |
 |-|-|
-| `npm run start`     | Compile and start Parcel development server with hot reloading |
-| `npm run build`     | Only compile, normally not used except in Docker workflow      |
-| `docker-compose up` | Compile and serve from dockerized nginx (production setup)     |
+| `npm run start`            | Compile and start Parcel development server with hot reloading |
+| `npm run build`            | Only compile, normally not used except in Docker workflow      |
+| `docker-compose up`        | Compile and serve from dockerized nginx (production setup)     |
+| `npx prettier --write src` | Format code with Prettier*                                     |
+
+*You might want to configure your editor to e.g. format automatically on file write. In this case just make sure your setup respects the Prettier configuration in `package.json` and the contents of `.prettierignore`.
 
 ## Explanation of env var injection
 
